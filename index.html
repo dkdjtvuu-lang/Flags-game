@@ -40,9 +40,12 @@
     <button onclick="startGame('reverse')">Наоборот<br>
       <small>выбери флаг по названию · 12 с</small><br>
       <small id="rec_reverse"></small></button>
-    <button onclick="startGame('capital')">Столицы<br>
-      <small>угадай столицу страны · 12 с</small><br>
+    <button onclick="startGame('capital')">Столицы: лёгкий<br>
+      <small>известные страны · 12 с</small><br>
       <small id="rec_capital"></small></button>
+    <button onclick="startGame('capital_hard')">Столицы: сложный<br>
+      <small>все страны · 10 с</small><br>
+      <small id="rec_capital_hard"></small></button>
   </div>
 
   <div id="game" class="hide">
@@ -168,9 +171,11 @@ ye:"Сана",zm:"Лусака",zw:"Хараре",xk:"Приштина",tw:"Та
       hard:    { time: 7,  type: "flag",    pool: Object.keys(countries) },
       reverse: { time: 12, type: "reverse", pool: easyCodes },
       capital: { time: 12, type: "capital",
+                 pool: easyCodes.filter(c => capitals[c]) },
+      capital_hard: { time: 10, type: "capital",
                  pool: Object.keys(capitals).filter(c => countries[c]) }
     };
-    const MODE_NAMES = ["easy", "hard", "reverse", "capital"];
+    const MODE_NAMES = ["easy", "hard", "reverse", "capital", "capital_hard"];
 
     let mode = "easy", score = 0, streak = 0, bestStreak = 0,
         lives = 3, timer = null, locked = false;
