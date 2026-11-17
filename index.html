@@ -12,12 +12,19 @@
     .fi { font-size: 8em; margin: 20px; }
     button { display: block; width: 90%; margin: 8px auto;
              padding: 14px; font-size: 18px; }
+    #barWrap { width: 90%; height: 10px; margin: 10px auto 4px;
+               background: rgba(128,128,128,0.3); border-radius: 5px;
+               overflow: hidden; }
+    #barFill { height: 100%; width: 100%; background: #4caf50;
+               transition: width 1s linear; }
   </style>
 </head>
 <body>
+  <div id="barWrap"><div id="barFill"></div></div>
+  <div id="timeText">⏱ 10 с</div>
   <span id="flag" class="fi"></span>
   <div id="answers"></div>
-  <p id="score">Счёт: 0</p>
+  <p id="score">Счёт: 0 из 0</p>
   <script>
     Telegram.WebApp.ready();
     const countries = {
@@ -66,25 +73,61 @@ us:"США",uy:"Уругвай",uz:"Узбекистан",vu:"Вануату",va
 ve:"Венесуэла",vn:"Вьетнам",ye:"Йемен",zm:"Замбия",zw:"Зимбабве",
 ps:"Палестина",tw:"Тайвань",xk:"Косово"
 };
-    let score = 0;
+
+    const TIME = 10;
+    let score = 0, total = 0, timer = null, locked = false;
+
+    function answer(chosen, right, buttons) {
+      if (locked) return;
+      locked = true;
+      clearInterval(timer);
+      total++;
+      if (chosen === right) score++;
+      buttons[right].style.background = "#4caf50";
+      if (chosen && chosen !== right) {
+        buttons[chosen].style.background = "#e53935";
+      }
+      document.getElementById("score").textContent =
+        "Счёт: " + score + " из " + total;
+      setTimeout(next, chosen === null ? 1500 : 800);
+    }
+
     function next() {
+      locked = false;
       const codes = Object.keys(countries);
       const right = codes[Math.floor(Math.random() * codes.length)];
       const opts = codes.filter(c => c !== right)
         .sort(() => Math.random() - 0.5).slice(0, 3).concat(right)
         .sort(() => Math.random() - 0.5);
       document.getElementById("flag").className = "fi fi-" + right;
-      document.getElementById("answers").innerHTML = "";
+      const box = document.getElementById("answers");
+      box.innerHTML = "";
+      const buttons = {};
       opts.forEach(c => {
         const b = document.createElement("button");
         b.textContent = countries[c];
-        b.onclick = () => {
-          if (c === right) score++;
-          document.getElementById("score").textContent = "Счёт: " + score;
-          next();
-        };
-        document.getElementById("answers").appendChild(b);
+        b.onclick = () => answer(c, right, buttons);
+        buttons[c] = b;
+        box.appendChild(b);
       });
+
+      let left = TIME;
+      const bar = document.getElementById("barFill");
+      const text = document.getElementById("timeText");
+      bar.style.transition = "none";
+      bar.style.width = "100%";
+      void bar.offsetWidth;
+      bar.style.transition = "width 1s linear";
+      text.textContent = "⏱ " + left + " с";
+      clearInterval(timer);
+      timer = setInterval(() => {
+        left--;
+        text.textContent = "⏱ " + left + " с";
+        bar.style.width = (left / TIME * 100) + "%";
+        if (left <= 0) {
+          answer(null, right, buttons);
+        }
+      }, 1000);
     }
     next();
   </script>
