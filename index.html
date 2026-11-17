@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
+  <style>
+    body { font-family: sans-serif; text-align: center;
+           background: var(--tg-theme-bg-color);
+           color: var(--tg-theme-text-color); }
+    .fi { font-size: 8em; margin: 20px; }
+    button { display: block; width: 90%; margin: 8px auto;
+             padding: 14px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <span id="flag" class="fi"></span>
+  <div id="answers"></div>
+  <p id="score">Счёт: 0</p>
+  <script>
+    Telegram.WebApp.ready();
+    const countries = {ru:"Россия", de:"Германия", fr:"Франция",
+                       jp:"Япония", it:"Италия", br:"Бразилия"};
+    let score = 0;
+    function next() {
+      const codes = Object.keys(countries);
+      const right = codes[Math.floor(Math.random() * codes.length)];
+      const opts = codes.filter(c => c !== right)
+        .sort(() => Math.random() - 0.5).slice(0, 3).concat(right)
+        .sort(() => Math.random() - 0.5);
+      document.getElementById("flag").className = "fi fi-" + right;
+      document.getElementById("answers").innerHTML = "";
+      opts.forEach(c => {
+        const b = document.createElement("button");
+        b.textContent = countries[c];
+        b.onclick = () => {
+          if (c === right) score++;
+          document.getElementById("score").textContent = "Счёт: " + score;
+          next();
+        };
+        document.getElementById("answers").appendChild(b);
+      });
+    }
+    next();
+  </script>
+</body>
+</html>
