@@ -15,6 +15,10 @@
              padding: 14px; font-size: 18px; }
     small { font-size: 13px; opacity: 0.8; }
     h1 { margin: 24px 0 8px; }
+    #prompt { font-size: 30px; font-weight: bold; margin: 28px 10px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            width: 94%; margin: 0 auto; }
+    .grid button { width: 100%; margin: 0; padding: 12px 6px; }
     #barWrap { width: 90%; height: 10px; margin: 8px auto 4px;
                background: rgba(128,128,128,0.3); border-radius: 5px;
                overflow: hidden; }
@@ -33,6 +37,12 @@
     <button onclick="startGame('hard')">Сложный<br>
       <small>все страны · 7 с</small><br>
       <small id="rec_hard"></small></button>
+    <button onclick="startGame('reverse')">Наоборот<br>
+      <small>выбери флаг по названию · 12 с</small><br>
+      <small id="rec_reverse"></small></button>
+    <button onclick="startGame('capital')">Столицы<br>
+      <small>угадай столицу страны · 12 с</small><br>
+      <small id="rec_capital"></small></button>
   </div>
 
   <div id="game" class="hide">
@@ -40,6 +50,7 @@
     <div id="barWrap"><div id="barFill"></div></div>
     <div id="timeText"></div>
     <span id="flag" class="fi"></span>
+    <div id="prompt"></div>
     <div id="answers"></div>
   </div>
 
@@ -102,6 +113,21 @@ ve:"Венесуэла",vn:"Вьетнам",ye:"Йемен",zm:"Замбия",zw
 ps:"Палестина",tw:"Тайвань",xk:"Косово"
     };
 
+    const capitals = {
+ru:"Москва",us:"Вашингтон",gb:"Лондон",fr:"Париж",de:"Берлин",
+it:"Рим",es:"Мадрид",pt:"Лиссабон",nl:"Амстердам",be:"Брюссель",
+ch:"Берн",at:"Вена",se:"Стокгольм",no:"Осло",fi:"Хельсинки",
+dk:"Копенгаген",pl:"Варшава",ua:"Киев",by:"Минск",kz:"Астана",
+tr:"Анкара",gr:"Афины",cn:"Пекин",jp:"Токио",kr:"Сеул",
+in:"Нью-Дели",br:"Бразилиа",ar:"Буэнос-Айрес",mx:"Мехико",
+ca:"Оттава",au:"Канберра",eg:"Каир",sa:"Эр-Рияд",ir:"Тегеран",
+cz:"Прага",hu:"Будапешт",ro:"Бухарест",bg:"София",rs:"Белград",
+hr:"Загреб",ie:"Дублин",is:"Рейкьявик",th:"Бангкок",vn:"Ханой",
+id:"Джакарта",cu:"Гавана",cl:"Сантьяго",co:"Богота",pe:"Лима",
+ve:"Каракас",nz:"Веллингтон",ae:"Абу-Даби",ge:"Тбилиси",
+am:"Ереван",az:"Баку",uz:"Ташкент"
+    };
+
     const easyCodes = ["ru","us","gb","fr","de","it","es","pt","nl","be",
       "ch","at","se","no","fi","dk","pl","ua","by","kz","tr","gr","cn",
       "jp","kr","in","br","ar","mx","ca","au","eg","za","il","sa","ir",
@@ -110,9 +136,13 @@ ps:"Палестина",tw:"Тайвань",xk:"Косово"
       .filter(c => countries[c]);
 
     const MODES = {
-      easy: { time: 15, codes: easyCodes },
-      hard: { time: 7,  codes: Object.keys(countries) }
+      easy:    { time: 15, type: "flag",    pool: easyCodes },
+      hard:    { time: 7,  type: "flag",    pool: Object.keys(countries) },
+      reverse: { time: 12, type: "reverse", pool: easyCodes },
+      capital: { time: 12, type: "capital",
+                 pool: easyCodes.filter(c => capitals[c]) }
     };
+    const MODE_NAMES = ["easy", "hard", "reverse", "capital"];
 
     let mode = "easy", score = 0, streak = 0, bestStreak = 0,
         lives = 3, timer = null, locked = false;
@@ -155,7 +185,7 @@ ps:"Палестина",tw:"Тайвань",xk:"Косово"
     function openMenu() {
       clearInterval(timer);
       show("menu");
-      ["easy", "hard"].forEach(m => getRecord(m, v => {
+      MODE_NAMES.forEach(m => getRecord(m, v => {
         document.getElementById("rec_" + m).textContent = "Рекорд: " + v;
       }));
     }
@@ -206,26 +236,45 @@ ps:"Палестина",tw:"Тайвань",xk:"Косово"
 
     function next() {
       locked = false;
-      const pool = MODES[mode].codes;
-      const TIME = MODES[mode].time;
+      const M = MODES[mode];
+      const pool = M.pool;
       const right = pool[Math.floor(Math.random() * pool.length)];
       const opts = pool.filter(c => c !== right)
         .sort(() => Math.random() - 0.5).slice(0, 3).concat(right)
         .sort(() => Math.random() - 0.5);
 
-      document.getElementById("flag").className = "fi fi-" + right;
+      const flagEl = document.getElementById("flag");
+      const promptEl = document.getElementById("prompt");
+      if (M.type === "flag") {
+        flagEl.className = "fi fi-" + right;
+        flagEl.style.display = "";
+        promptEl.textContent = "";
+      } else {
+        flagEl.className = "";
+        flagEl.style.display = "none";
+        promptEl.textContent = countries[right];
+      }
+
       const box = document.getElementById("answers");
       box.innerHTML = "";
+      box.className = M.type === "reverse" ? "grid" : "";
       const buttons = {};
       opts.forEach(c => {
         const b = document.createElement("button");
-        b.textContent = countries[c];
+        if (M.type === "reverse") {
+          b.innerHTML = '<span class="fi fi-' + c +
+            '" style="font-size:3em;margin:0"></span>';
+        } else if (M.type === "capital") {
+          b.textContent = capitals[c];
+        } else {
+          b.textContent = countries[c];
+        }
         b.onclick = () => answer(c, right, buttons);
         buttons[c] = b;
         box.appendChild(b);
       });
 
-      let left = TIME;
+      let left = M.time;
       const bar = document.getElementById("barFill");
       const text = document.getElementById("timeText");
       bar.style.transition = "none";
@@ -237,7 +286,7 @@ ps:"Палестина",tw:"Тайвань",xk:"Косово"
       timer = setInterval(() => {
         left--;
         text.textContent = "⏱ " + Math.max(left, 0) + " с";
-        bar.style.width = (Math.max(left, 0) / TIME * 100) + "%";
+        bar.style.width = (Math.max(left, 0) / M.time * 100) + "%";
         if (left <= 0) answer(null, right, buttons);
       }, 1000);
     }
