@@ -6,27 +6,55 @@
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
   <style>
-    body { font-family: sans-serif; text-align: center;
-           background: var(--tg-theme-bg-color);
+    body { font-family: sans-serif; text-align: center; margin: 0;
+           padding: 8px; background: var(--tg-theme-bg-color);
            color: var(--tg-theme-text-color); }
-    .fi { font-size: 8em; margin: 20px; }
+    .hide { display: none; }
+    .fi { font-size: 8em; margin: 16px; }
     button { display: block; width: 90%; margin: 8px auto;
              padding: 14px; font-size: 18px; }
-    #barWrap { width: 90%; height: 10px; margin: 10px auto 4px;
+    small { font-size: 13px; opacity: 0.8; }
+    h1 { margin: 24px 0 8px; }
+    #barWrap { width: 90%; height: 10px; margin: 8px auto 4px;
                background: rgba(128,128,128,0.3); border-radius: 5px;
                overflow: hidden; }
-    #barFill { height: 100%; width: 100%; background: #4caf50;
-               transition: width 1s linear; }
+    #barFill { height: 100%; width: 100%; background: #4caf50; }
+    #hud { font-size: 20px; margin: 6px 0; }
   </style>
 </head>
 <body>
-  <div id="barWrap"><div id="barFill"></div></div>
-  <div id="timeText">⏱ 10 с</div>
-  <span id="flag" class="fi"></span>
-  <div id="answers"></div>
-  <p id="score">Счёт: 0 из 0</p>
+
+  <div id="menu">
+    <h1>Угадай флаг</h1>
+    <p>Выбери режим</p>
+    <button onclick="startGame('easy')">Лёгкий<br>
+      <small>известные страны · 15 с</small><br>
+      <small id="rec_easy"></small></button>
+    <button onclick="startGame('hard')">Сложный<br>
+      <small>все страны · 7 с</small><br>
+      <small id="rec_hard"></small></button>
+  </div>
+
+  <div id="game" class="hide">
+    <div id="hud"></div>
+    <div id="barWrap"><div id="barFill"></div></div>
+    <div id="timeText"></div>
+    <span id="flag" class="fi"></span>
+    <div id="answers"></div>
+  </div>
+
+  <div id="over" class="hide">
+    <h1>Игра окончена</h1>
+    <p id="overText" style="font-size:20px;line-height:1.6"></p>
+    <button onclick="startGame(mode)">Играть снова</button>
+    <button onclick="openMenu()">В меню</button>
+  </div>
+
   <script>
-    Telegram.WebApp.ready();
+    const tg = Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
     const countries = {
 af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
 ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
@@ -72,33 +100,119 @@ tv:"Тувалу",ug:"Уганда",ua:"Украина",ae:"ОАЭ",gb:"Вели
 us:"США",uy:"Уругвай",uz:"Узбекистан",vu:"Вануату",va:"Ватикан",
 ve:"Венесуэла",vn:"Вьетнам",ye:"Йемен",zm:"Замбия",zw:"Зимбабве",
 ps:"Палестина",tw:"Тайвань",xk:"Косово"
-};
+    };
 
-    const TIME = 10;
-    let score = 0, total = 0, timer = null, locked = false;
+    const easyCodes = ["ru","us","gb","fr","de","it","es","pt","nl","be",
+      "ch","at","se","no","fi","dk","pl","ua","by","kz","tr","gr","cn",
+      "jp","kr","in","br","ar","mx","ca","au","eg","za","il","sa","ir",
+      "cz","hu","ro","bg","rs","hr","ie","is","th","vn","id","cu","cl",
+      "co","pe","ve","nz","ae","ge","am","az","uz"]
+      .filter(c => countries[c]);
+
+    const MODES = {
+      easy: { time: 15, codes: easyCodes },
+      hard: { time: 7,  codes: Object.keys(countries) }
+    };
+
+    let mode = "easy", score = 0, streak = 0, bestStreak = 0,
+        lives = 3, timer = null, locked = false;
+
+    function show(id) {
+      ["menu", "game", "over"].forEach(x =>
+        document.getElementById(x).classList.toggle("hide", x !== id));
+    }
+
+    function lsGet(key) {
+      try { return parseInt(localStorage.getItem(key)) || 0; }
+      catch (e) { return 0; }
+    }
+
+    function getRecord(m, cb) {
+      const key = "rec_" + m;
+      let done = false;
+      const finish = v => { if (!done) { done = true; cb(v); } };
+      try {
+        if (tg.CloudStorage && tg.isVersionAtLeast("6.9")) {
+          tg.CloudStorage.getItem(key, (e, v) =>
+            finish(Math.max(parseInt(v) || 0, lsGet(key))));
+          setTimeout(() => finish(lsGet(key)), 1500);
+          return;
+        }
+      } catch (e) {}
+      finish(lsGet(key));
+    }
+
+    function setRecord(m, v) {
+      const key = "rec_" + m;
+      try { localStorage.setItem(key, String(v)); } catch (e) {}
+      try {
+        if (tg.CloudStorage && tg.isVersionAtLeast("6.9")) {
+          tg.CloudStorage.setItem(key, String(v));
+        }
+      } catch (e) {}
+    }
+
+    function openMenu() {
+      clearInterval(timer);
+      show("menu");
+      ["easy", "hard"].forEach(m => getRecord(m, v => {
+        document.getElementById("rec_" + m).textContent = "Рекорд: " + v;
+      }));
+    }
+
+    function updateHud() {
+      document.getElementById("hud").textContent =
+        "❤️".repeat(lives) + "🖤".repeat(3 - lives) +
+        "   🔥 " + streak + "   ✅ " + score;
+    }
+
+    function startGame(m) {
+      mode = m;
+      score = 0; streak = 0; bestStreak = 0; lives = 3;
+      show("game");
+      updateHud();
+      next();
+    }
+
+    function endGame() {
+      clearInterval(timer);
+      getRecord(mode, rec => {
+        const isNew = score > rec;
+        if (isNew) setRecord(mode, score);
+        document.getElementById("overText").innerHTML =
+          "Угадано: <b>" + score + "</b><br>" +
+          "Лучшая серия: <b>" + bestStreak + "</b><br>" +
+          (isNew ? "🏆 Новый рекорд!" : "Рекорд: <b>" + rec + "</b>");
+        show("over");
+      });
+    }
 
     function answer(chosen, right, buttons) {
       if (locked) return;
       locked = true;
       clearInterval(timer);
-      total++;
-      if (chosen === right) score++;
-      buttons[right].style.background = "#4caf50";
-      if (chosen && chosen !== right) {
-        buttons[chosen].style.background = "#e53935";
+      const ok = chosen === right;
+      if (ok) {
+        score++; streak++;
+        if (streak > bestStreak) bestStreak = streak;
+      } else {
+        lives--; streak = 0;
       }
-      document.getElementById("score").textContent =
-        "Счёт: " + score + " из " + total;
-      setTimeout(next, chosen === null ? 1500 : 800);
+      buttons[right].style.background = "#4caf50";
+      if (chosen && !ok) buttons[chosen].style.background = "#e53935";
+      updateHud();
+      setTimeout(() => lives <= 0 ? endGame() : next(), ok ? 800 : 1500);
     }
 
     function next() {
       locked = false;
-      const codes = Object.keys(countries);
-      const right = codes[Math.floor(Math.random() * codes.length)];
-      const opts = codes.filter(c => c !== right)
+      const pool = MODES[mode].codes;
+      const TIME = MODES[mode].time;
+      const right = pool[Math.floor(Math.random() * pool.length)];
+      const opts = pool.filter(c => c !== right)
         .sort(() => Math.random() - 0.5).slice(0, 3).concat(right)
         .sort(() => Math.random() - 0.5);
+
       document.getElementById("flag").className = "fi fi-" + right;
       const box = document.getElementById("answers");
       box.innerHTML = "";
@@ -122,14 +236,13 @@ ps:"Палестина",tw:"Тайвань",xk:"Косово"
       clearInterval(timer);
       timer = setInterval(() => {
         left--;
-        text.textContent = "⏱ " + left + " с";
-        bar.style.width = (left / TIME * 100) + "%";
-        if (left <= 0) {
-          answer(null, right, buttons);
-        }
+        text.textContent = "⏱ " + Math.max(left, 0) + " с";
+        bar.style.width = (Math.max(left, 0) / TIME * 100) + "%";
+        if (left <= 0) answer(null, right, buttons);
       }, 1000);
     }
-    next();
+
+    openMenu();
   </script>
 </body>
 </html>
