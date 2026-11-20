@@ -3,243 +3,237 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
-<style>* {
-  box-sizing: border-box;
-}
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 18px;
-  min-height: 100vh;
-  background: #0b1020;
-  color: #fff;
-}  
-</style>
-  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
+  <style>
+    * { box-sizing: border-box; }
 
-h1 {
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 18px;
+      min-height: 100vh;
+      background: #0b1020;
+      color: #fff;
+      text-align: center;
+    }
 
-.subtitle {
-  color: #9ca9c5;
-  margin-bottom: 25px;
-}
+    .hide { display: none !important; }
 
-.logo {
-  font-size: 36px;
-  font-weight: 900;
-  margin-top: 20px;
-  background: linear-gradient(90deg,#55d6ff,#a47bff);
-  -webkit-background-clip: text;
-  color: transparent;
-}
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin: 24px 0 8px;
+    }
 
-.section-title {
-  text-align: left;
-  font-size: 20px;
-  margin: 28px 0 14px;
-}
+    .subtitle {
+      color: #9ca9c5;
+      margin-bottom: 25px;
+    }
 
-.category-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
+    .logo {
+      font-size: 36px;
+      font-weight: 900;
+      margin-top: 20px;
+      background: linear-gradient(90deg, #55d6ff, #a47bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-.category {
-  background: #19233a;
-  border: 1px solid #293958;
-  border-radius: 18px;
-  padding: 20px 10px;
-  min-height: 125px;
-  text-align: left;
-  cursor: pointer;
-  color: white;
-}
+    .section-title {
+      text-align: left;
+      font-size: 20px;
+      margin: 28px 0 14px;
+    }
 
-.category:active {
-  transform: scale(.96);
-}
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
-.category .icon {
-  font-size: 34px;
-}
+    .category {
+      background: #19233a;
+      border: 1px solid #293958;
+      border-radius: 18px;
+      padding: 20px 10px;
+      min-height: 125px;
+      text-align: left;
+      cursor: pointer;
+      color: white;
+    }
 
-.category h3 {
-  margin: 12px 0 5px;
-  font-size: 17px;
-}
+    .category:active { transform: scale(0.96); }
+    .category .icon { font-size: 34px; }
+    .category h3 { margin: 12px 0 5px; font-size: 17px; }
+    .category small { color: #aab7d0; }
 
-.category small {
-  color: #aab7d0;
-}
+    .main-card {
+      background: linear-gradient(135deg, #293f75, #553b91);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+    }
 
-.main-card {
-  background: linear-gradient(135deg,#293f75,#553b91);
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 20px;
-  text-align: left;
-}
+    button {
+      border: 1px solid #354565;
+      border-radius: 13px;
+      background: #202d49;
+      color: white;
+      cursor: pointer;
+      display: block;
+      width: 90%;
+      margin: 8px auto;
+      padding: 14px;
+      font-size: 18px;
+    }
 
-.main-card button {
-  background: #fff;
-  color: #18213b;
-  border: 0;
-  border-radius: 12px;
-  font-weight: bold;
-}
+    .main-card button {
+      background: #fff;
+      color: #18213b;
+      border: 0;
+      border-radius: 12px;
+      font-weight: bold;
+    }
 
-button {
-  border: 1px solid #354565;
-  border-radius: 13px;
-  background: #202d49;
-  color: white;
-  cursor: pointer;
-}
+    .back-button {
+      background: transparent;
+      border: 1px solid #354565;
+      width: auto;
+      padding: 10px 18px;
+      margin: 10px auto;
+    }
 
-#menu button {
-  background: #202d49;
-  border: 1px solid #354565;
-  border-radius: 13px;
-  color: white;
-}
+    #prompt {
+      font-size: 27px;
+      font-weight: bold;
+      margin: 28px 10px;
+    }
 
-#prompt {
-  font-size: 27px;
-}
+    #hud {
+      font-size: 20px;
+      margin: 15px 0 6px;
+    }
 
-#hud {
-  margin: 15px;
-}
+    #barWrap {
+      width: 90%;
+      height: 10px;
+      margin: 8px auto 4px;
+      background: rgba(128, 128, 128, 0.3);
+      border-radius: 5px;
+      overflow: hidden;
+    }
 
-#barWrap {
-  border-radius: 10px;
-  height: 9px;
-}
+    #barFill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #43d9ff, #9b73ff);
+    }
 
-#barFill {
-  background: linear-gradient(90deg,#43d9ff,#9b73ff);
-}
+    .fi {
+      font-size: 8em;
+      margin: 16px;
+    }
 
-.back-button {
-  background: transparent;
-  border: 1px solid #354565;
-  width: auto;
-  padding: 10px 18px;
-  margin: 10px 0;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 94%;
+      margin: 0 auto;
+    }
 
-.hide {
-  display: none !important;
-}  <style>
-    body { font-family: sans-serif; text-align: center; margin: 0;
-           padding: 8px; background: var(--tg-theme-bg-color);
-           color: var(--tg-theme-text-color); }
-    .hide { display: none; }
-    .fi { font-size: 8em; margin: 16px; }
-    button { display: block; width: 90%; margin: 8px auto;
-             padding: 14px; font-size: 18px; }
-    small { font-size: 13px; opacity: 0.8; }
-    h1 { margin: 24px 0 8px; }
-    #prompt { font-size: 30px; font-weight: bold; margin: 28px 10px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-            width: 94%; margin: 0 auto; }
-    .grid button { width: 100%; margin: 0; padding: 12px 6px; }
-    #barWrap { width: 90%; height: 10px; margin: 8px auto 4px;
-               background: rgba(128,128,128,0.3); border-radius: 5px;
-               overflow: hidden; }
-    #barFill { height: 100%; width: 100%; background: #4caf50; }
-    #hud { font-size: 20px; margin: 6px 0; }
+    .grid button {
+      width: 100%;
+      margin: 0;
+      padding: 12px 6px;
+    }
+
+    small {
+      font-size: 13px;
+      opacity: 0.8;
+    }
   </style>
 </head>
 <body>
 
   <div id="menu">
+    <div id="homeMenu">
+      <div class="logo">🎮 GAME ZONE</div>
+      <p class="subtitle">Твоя игровая территория</p>
 
+      <div class="main-card">
+        <h2>🏆 Добро пожаловать!</h2>
+        <p>Играй, набирай очки и становись лучшим.</p>
+      </div>
 
-  <div id="homeMenu">
-    <div class="logo">🎮 GAME ZONE</div>
-    <p class="subtitle">Твоя игровая территория</p>
+      <h2 class="section-title">Выбери категорию</h2>
 
-    <div class="main-card">
-      <h2>🏆 Добро пожаловать!</h2>
-      <p>Играй, набирай очки и становись лучшим.</p>
+      <div class="category-grid">
+        <button class="category" onclick="openCategory('geo')">
+          <div class="icon">🌍</div>
+          <h3>География</h3>
+          <small>Флаги и столицы</small>
+        </button>
+
+        <button class="category" onclick="comingSoon('Спорт')">
+          <div class="icon">⚽</div>
+          <h3>Спорт</h3>
+          <small>Футбол и другие виды</small>
+        </button>
+
+        <button class="category" onclick="comingSoon('Эрудиция')">
+          <div class="icon">🧠</div>
+          <h3>Эрудиция</h3>
+          <small>Проверь свои знания</small>
+        </button>
+
+        <button class="category" onclick="comingSoon('Развлечения')">
+          <div class="icon">🎬</div>
+          <h3>Развлечения</h3>
+          <small>Кино и музыка</small>
+        </button>
+
+        <button class="category" onclick="comingSoon('Логика')">
+          <div class="icon">🔢</div>
+          <h3>Логика</h3>
+          <small>Загадки и головоломки</small>
+        </button>
+      </div>
     </div>
 
-    <h2 class="section-title">Выбери категорию</h2>
+    <div id="geoMenu" class="hide">
+      <h1>🌍 География</h1>
+      <p>Выбери игровой режим</p>
 
-    <div class="category-grid">
-
-      <button class="category" onclick="openCategory('geo')">
-        <div class="icon">🌍</div>
-        <h3>География</h3>
-        <small>Флаги и столицы</small>
+      <button onclick="startGame('easy')">
+        Лёгкий<br><small id="rec_easy"></small>
       </button>
 
-      <button class="category" onclick="comingSoon('Спорт')">
-        <div class="icon">⚽</div>
-        <h3>Спорт</h3>
-        <small>Футбол и другие виды</small>
+      <button onclick="startGame('hard')">
+        Сложный<br><small id="rec_hard"></small>
       </button>
 
-      <button class="category" onclick="comingSoon('Эрудиция')">
-        <div class="icon">🧠</div>
-        <h3>Эрудиция</h3>
-        <small>Проверь свои знания</small>
+      <button onclick="startGame('reverse')">
+        Наоборот<br><small id="rec_reverse"></small>
       </button>
 
-      <button class="category" onclick="comingSoon('Развлечения')">
-        <div class="icon">🎬</div>
-        <h3>Развлечения</h3>
-        <small>Кино и музыка</small>
+      <button onclick="startGame('capital')">
+        Столицы: лёгкий<br><small id="rec_capital"></small>
       </button>
 
-      <button class="category" onclick="comingSoon('Логика')">
-        <div class="icon">🔢</div>
-        <h3>Логика</h3>
-        <small>Загадки и головоломки</small>
+      <button onclick="startGame('capital_hard')">
+        Столицы: сложный<br><small id="rec_capital_hard"></small>
       </button>
 
+      <button class="back-button" onclick="backHome()">
+        ← Назад
+      </button>
     </div>
   </div>
 
-  <div id="geoMenu" class="hide">
-    <h1>🌍 География</h1>
-    <p>Выбери игровой режим</p>
-
-    <button onclick="startGame('easy')">
-      Лёгкий<br><small id="rec_easy"></small>
-    </button>
-
-    <button onclick="startGame('hard')">
-      Сложный<br><small id="rec_hard"></small>
-    </button>
-
-    <button onclick="startGame('reverse')">
-      Наоборот<br><small id="rec_reverse"></small>
-    </button>
-
-    <button onclick="startGame('capital')">
-      Столицы: лёгкий<br><small id="rec_capital"></small>
-    </button>
-
-    <button onclick="startGame('capital_hard')">
-      Столицы: сложный<br><small id="rec_capital_hard"></small>
-    </button>
-
-    <button class="back-button" onclick="backHome()">
-      ← Назад
-    </button>
-  </div>
-
-  </div>
-    
   <div id="game" class="hide">
     <div id="hud"></div>
     <div id="barWrap"><div id="barFill"></div></div>
@@ -257,98 +251,100 @@ button {
   </div>
 
   <script>
-    const tg = Telegram.WebApp;
-    tg.ready();
-    tg.expand();
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
 
     const countries = {
-af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
-ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
-at:"Австрия",az:"Азербайджан",bs:"Багамы",bh:"Бахрейн",bd:"Бангладеш",
-bb:"Барбадос",by:"Беларусь",be:"Бельгия",bz:"Белиз",bj:"Бенин",
-bt:"Бутан",bo:"Боливия",ba:"Босния и Герцеговина",bw:"Ботсвана",
-br:"Бразилия",bn:"Бруней",bg:"Болгария",bf:"Буркина-Фасо",bi:"Бурунди",
-cv:"Кабо-Верде",kh:"Камбоджа",cm:"Камерун",ca:"Канада",
-cf:"Центральноафриканская Республика",td:"Чад",cl:"Чили",cn:"Китай",
-co:"Колумбия",km:"Коморы",cg:"Республика Конго",cd:"ДР Конго",
-cr:"Коста-Рика",ci:"Кот-д’Ивуар",hr:"Хорватия",cu:"Куба",cy:"Кипр",
-cz:"Чехия",dk:"Дания",dj:"Джибути",dm:"Доминика",
-do:"Доминиканская Республика",ec:"Эквадор",eg:"Египет",sv:"Сальвадор",
-gq:"Экваториальная Гвинея",er:"Эритрея",ee:"Эстония",sz:"Эсватини",
-et:"Эфиопия",fj:"Фиджи",fi:"Финляндия",fr:"Франция",ga:"Габон",
-gm:"Гамбия",ge:"Грузия",de:"Германия",gh:"Гана",gr:"Греция",
-gd:"Гренада",gt:"Гватемала",gn:"Гвинея",gw:"Гвинея-Бисау",gy:"Гайана",
-ht:"Гаити",hn:"Гондурас",hu:"Венгрия",is:"Исландия",in:"Индия",
-id:"Индонезия",ir:"Иран",iq:"Ирак",ie:"Ирландия",il:"Израиль",
-it:"Италия",jm:"Ямайка",jp:"Япония",jo:"Иордания",kz:"Казахстан",
-ke:"Кения",ki:"Кирибати",kp:"КНДР",kr:"Южная Корея",kw:"Кувейт",
-kg:"Киргизия",la:"Лаос",lv:"Латвия",lb:"Ливан",ls:"Лесото",
-lr:"Либерия",ly:"Ливия",li:"Лихтенштейн",lt:"Литва",lu:"Люксембург",
-mg:"Мадагаскар",mw:"Малави",my:"Малайзия",mv:"Мальдивы",ml:"Мали",
-mt:"Мальта",mh:"Маршалловы Острова",mr:"Мавритания",mu:"Маврикий",
-mx:"Мексика",fm:"Микронезия",md:"Молдова",mc:"Монако",mn:"Монголия",
-me:"Черногория",ma:"Марокко",mz:"Мозамбик",mm:"Мьянма",na:"Намибия",
-nr:"Науру",np:"Непал",nl:"Нидерланды",nz:"Новая Зеландия",
-ni:"Никарагуа",ne:"Нигер",ng:"Нигерия",mk:"Северная Македония",
-no:"Норвегия",om:"Оман",pk:"Пакистан",pw:"Палау",pa:"Панама",
-pg:"Папуа — Новая Гвинея",py:"Парагвай",pe:"Перу",ph:"Филиппины",
-pl:"Польша",pt:"Португалия",qa:"Катар",ro:"Румыния",ru:"Россия",
-rw:"Руанда",kn:"Сент-Китс и Невис",lc:"Сент-Люсия",
-vc:"Сент-Винсент и Гренадины",ws:"Самоа",sm:"Сан-Марино",
-st:"Сан-Томе и Принсипи",sa:"Саудовская Аравия",sn:"Сенегал",
-rs:"Сербия",sc:"Сейшелы",sl:"Сьерра-Леоне",sg:"Сингапур",
-sk:"Словакия",si:"Словения",sb:"Соломоновы Острова",so:"Сомали",
-za:"ЮАР",ss:"Южный Судан",es:"Испания",lk:"Шри-Ланка",sd:"Судан",
-sr:"Суринам",se:"Швеция",ch:"Швейцария",sy:"Сирия",tj:"Таджикистан",
-tz:"Танзания",th:"Таиланд",tl:"Восточный Тимор",tg:"Того",to:"Тонга",
-tt:"Тринидад и Тобаго",tn:"Тунис",tr:"Турция",tm:"Туркменистан",
-tv:"Тувалу",ug:"Уганда",ua:"Украина",ae:"ОАЭ",gb:"Великобритания",
-us:"США",uy:"Уругвай",uz:"Узбекистан",vu:"Вануату",va:"Ватикан",
-ve:"Венесуэла",vn:"Вьетнам",ye:"Йемен",zm:"Замбия",zw:"Зимбабве",
-ps:"Палестина",tw:"Тайвань",xk:"Косово"
+      af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
+      ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
+      at:"Австрия",az:"Азербайджан",bs:"Багамы",bh:"Бахрейн",bd:"Бангладеш",
+      bb:"Барбадос",by:"Беларусь",be:"Бельгия",bz:"Белиз",bj:"Бенин",
+      bt:"Бутан",bo:"Боливия",ba:"Босния и Герцеговина",bw:"Ботсвана",
+      br:"Бразилия",bn:"Бруней",bg:"Болгария",bf:"Буркина-Фасо",bi:"Бурунди",
+      cv:"Кабо-Верде",kh:"Камбоджа",cm:"Камерун",ca:"Канада",
+      cf:"Центральноафриканская Республика",td:"Чад",cl:"Чили",cn:"Китай",
+      co:"Колумбия",km:"Коморы",cg:"Республика Конго",cd:"ДР Конго",
+      cr:"Коста-Рика",ci:"Кот-д’Ивуар",hr:"Хорватия",cu:"Куба",cy:"Кипр",
+      cz:"Чехия",dk:"Дания",dj:"Джибути",dm:"Доминика",
+      do:"Доминиканская Республика",ec:"Эквадор",eg:"Египет",sv:"Сальвадор",
+      gq:"Экваториальная Гвинея",er:"Эритрея",ee:"Эстония",sz:"Эсватини",
+      et:"Эфиопия",fj:"Фиджи",fi:"Финляндия",fr:"Франция",ga:"Габон",
+      gm:"Гамбия",ge:"Грузия",de:"Германия",gh:"Гана",gr:"Греция",
+      gd:"Гренада",gt:"Гватемала",gn:"Гвинея",gw:"Гвинея-Бисау",gy:"Гайана",
+      ht:"Гаити",hn:"Гондурас",hu:"Венгрия",is:"Исландия",in:"Индия",
+      id:"Индонезия",ir:"Иран",iq:"Ирак",ie:"Ирландия",il:"Израиль",
+      it:"Италия",jm:"Ямайка",jp:"Япония",jo:"Иордания",kz:"Казахстан",
+      ke:"Кения",ki:"Кирибати",kp:"КНДР",kr:"Южная Корея",kw:"Кувейт",
+      kg:"Киргизия",la:"Лаос",lv:"Латвия",lb:"Ливан",ls:"Лесото",
+      lr:"Либерия",ly:"Ливия",li:"Лихтенштейн",lt:"Литва",lu:"Люксембург",
+      mg:"Мадагаскар",mw:"Малави",my:"Малайзия",mv:"Мальдивы",ml:"Мали",
+      mt:"Мальта",mh:"Маршалловы Острова",mr:"Мавритания",mu:"Маврикий",
+      mx:"Мексика",fm:"Микронезия",md:"Молдова",mc:"Монако",mn:"Монголия",
+      me:"Черногория",ma:"Марокко",mz:"Мозамбик",mm:"Мьянма",na:"Намибия",
+      nr:"Науру",np:"Непал",nl:"Нидерланды",nz:"Новая Зеландия",
+      ni:"Никарагуа",ne:"Нигер",ng:"Нигерия",mk:"Северная Македония",
+      no:"Норвегия",om:"Оман",pk:"Пакистан",pw:"Палау",pa:"Панама",
+      pg:"Папуа — Новая Гвинея",py:"Парагвай",pe:"Перу",ph:"Филиппины",
+      pl:"Польша",pt:"Португалия",qa:"Катар",ro:"Румыния",ru:"Россия",
+      rw:"Руанда",kn:"Сент-Китс и Невис",lc:"Сент-Люсия",
+      vc:"Сент-Винсент и Гренадины",ws:"Самоа",sm:"Сан-Марино",
+      st:"Сан-Томе и Принсипи",sa:"Саудовская Аравия",sn:"Сенегал",
+      rs:"Сербия",sc:"Сейшелы",sl:"Сьерра-Леоне",sg:"Сингапур",
+      sk:"Словакия",si:"Словения",sb:"Соломоновы Острова",so:"Сомали",
+      za:"ЮАР",ss:"Южный Судан",es:"Испания",lk:"Шри-Ланка",sd:"Судан",
+      sr:"Суринам",se:"Швеция",ch:"Швейцария",sy:"Сирия",tj:"Таджикистан",
+      tz:"Танзания",th:"Таиланд",tl:"Восточный Тимор",tg:"Того",to:"Тонга",
+      tt:"Тринидад и Тобаго",tn:"Тунис",tr:"Турция",tm:"Туркменистан",
+      tv:"Тувалу",ug:"Уганда",ua:"Украина",ae:"ОАЭ",gb:"Великобритания",
+      us:"США",uy:"Уругвай",uz:"Узбекистан",vu:"Вануату",va:"Ватикан",
+      ve:"Венесуэла",vn:"Вьетнам",ye:"Йемен",zm:"Замбия",zw:"Зимбабве",
+      ps:"Палестина",tw:"Тайвань",xk:"Косово"
     };
 
     const capitals = {
-af:"Кабул",al:"Тирана",dz:"Алжир",ad:"Андорра-ла-Велья",ao:"Луанда",
-ag:"Сент-Джонс",ar:"Буэнос-Айрес",am:"Ереван",au:"Канберра",
-at:"Вена",az:"Баку",bs:"Нассау",bh:"Манама",bd:"Дакка",
-bb:"Бриджтаун",by:"Минск",be:"Брюссель",bz:"Бельмопан",bj:"Порто-Ново",
-bt:"Тхимпху",bo:"Сукре",ba:"Сараево",bw:"Габороне",br:"Бразилиа",
-bn:"Бандар-Сери-Бегаван",bg:"София",bf:"Уагадугу",bi:"Гитега",
-cv:"Прая",kh:"Пномпень",cm:"Яунде",ca:"Оттава",cf:"Банги",
-td:"Нджамена",cl:"Сантьяго",cn:"Пекин",co:"Богота",km:"Морони",
-cg:"Браззавиль",cd:"Киншаса",cr:"Сан-Хосе",ci:"Ямусукро",hr:"Загреб",
-cu:"Гавана",cy:"Никосия",cz:"Прага",dk:"Копенгаген",dj:"Джибути",
-dm:"Розо",do:"Санто-Доминго",ec:"Кито",eg:"Каир",sv:"Сан-Сальвадор",
-gq:"Малабо",er:"Асмэра",ee:"Таллин",sz:"Мбабане",et:"Аддис-Абеба",
-fj:"Сува",fi:"Хельсинки",fr:"Париж",ga:"Либревиль",gm:"Банжул",
-ge:"Тбилиси",de:"Берлин",gh:"Аккра",gr:"Афины",gd:"Сент-Джорджес",
-gt:"Гватемала",gn:"Конакри",gw:"Бисау",gy:"Джорджтаун",ht:"Порт-о-Пренс",
-hn:"Тегусигальпа",hu:"Будапешт",is:"Рейкьявик",in:"Нью-Дели",
-id:"Джакарта",ir:"Тегеран",iq:"Багдад",ie:"Дублин",il:"Иерусалим",
-it:"Рим",jm:"Кингстон",jp:"Токио",jo:"Амман",kz:"Астана",
-ke:"Найроби",ki:"Южная Тарава",kp:"Пхеньян",kr:"Сеул",kw:"Эль-Кувейт",
-kg:"Бишкек",la:"Вьентьян",lv:"Рига",lb:"Бейрут",ls:"Масеру",
-lr:"Монровия",ly:"Триполи",li:"Вадуц",lt:"Вильнюс",lu:"Люксембург",
-mg:"Антананариву",mw:"Лилонгве",my:"Куала-Лумпур",mv:"Мале",ml:"Бамако",
-mt:"Валлетта",mh:"Маджуро",mr:"Нуакшот",mu:"Порт-Луи",mx:"Мехико",
-fm:"Паликир",md:"Кишинёв",mc:"Монако",mn:"Улан-Батор",me:"Подгорица",
-ma:"Рабат",mz:"Мапуту",mm:"Нейпьидо",na:"Виндхук",nr:"Ярен",
-np:"Катманду",nl:"Амстердам",nz:"Веллингтон",ni:"Манагуа",ne:"Ниамей",
-ng:"Абуджа",mk:"Скопье",no:"Осло",om:"Маскат",pk:"Исламабад",
-pw:"Нгерулмуд",pa:"Панама",pg:"Порт-Морсби",py:"Асунсьон",pe:"Лима",
-ph:"Манила",pl:"Варшава",pt:"Лиссабон",qa:"Доха",ro:"Бухарест",
-ru:"Москва",rw:"Кигали",kn:"Бастер",lc:"Кастри",vc:"Кингстаун",
-ws:"Апиа",sm:"Сан-Марино",st:"Сан-Томе",sa:"Эр-Рияд",sn:"Дакар",
-rs:"Белград",sc:"Виктория",sl:"Фритаун",sg:"Сингапур",sk:"Братислава",
-si:"Любляна",sb:"Хониара",so:"Могадишо",za:"Претория",ss:"Джуба",
-es:"Мадрид",lk:"Шри-Джаяварденепура-Котте",sd:"Хартум",sr:"Парамарибо",
-se:"Стокгольм",ch:"Берн",sy:"Дамаск",tj:"Душанбе",tz:"Додома",
-th:"Бангкок",tl:"Дили",tg:"Ломе",to:"Нукуалофа",tt:"Порт-оф-Спейн",
-tn:"Тунис",tr:"Анкара",tm:"Ашхабад",tv:"Фунафути",ug:"Кампала",
-ua:"Киев",ae:"Абу-Даби",gb:"Лондон",us:"Вашингтон",uy:"Монтевидео",
-uz:"Ташкент",vu:"Порт-Вила",va:"Ватикан",ve:"Каракас",vn:"Ханой",
-ye:"Сана",zm:"Лусака",zw:"Хараре",xk:"Приштина",tw:"Тайбэй"
+      af:"Кабул",al:"Тирана",dz:"Алжир",ad:"Андорра-ла-Велья",ao:"Луанда",
+      ag:"Сент-Джонс",ar:"Буэнос-Айрес",am:"Ереван",au:"Канберра",
+      at:"Вена",az:"Баку",bs:"Нассау",bh:"Манама",bd:"Дакка",
+      bb:"Бриджтаун",by:"Минск",be:"Брюссель",bz:"Бельмопан",bj:"Порто-Ново",
+      bt:"Тхимпху",bo:"Сукре",ba:"Сараево",bw:"Габороне",br:"Бразилиа",
+      bn:"Бандар-Сери-Бегаван",bg:"София",bf:"Уагадугу",bi:"Гитега",
+      cv:"Прая",kh:"Пномпень",cm:"Яунде",ca:"Оттава",cf:"Банги",
+      td:"Нджамена",cl:"Сантьяго",cn:"Пекин",co:"Богота",km:"Морони",
+      cg:"Браззавиль",cd:"Киншаса",cr:"Сан-Хосе",ci:"Ямусукро",hr:"Загреб",
+      cu:"Гавана",cy:"Никосия",cz:"Прага",dk:"Копенгаген",dj:"Джибути",
+      dm:"Розо",do:"Санто-Доминго",ec:"Кито",eg:"Каир",sv:"Сан-Сальвадор",
+      gq:"Малабо",er:"Асмэра",ee:"Таллин",sz:"Мбабане",et:"Аддис-Абеба",
+      fj:"Сува",fi:"Хельсинки",fr:"Париж",ga:"Либревиль",gm:"Банжул",
+      ge:"Тбилиси",de:"Берлин",gh:"Аккра",gr:"Афины",gd:"Сент-Джорджес",
+      gt:"Гватемала",gn:"Конакри",gw:"Бисау",gy:"Джорджтаун",ht:"Порт-о-Пренс",
+      hn:"Тегусигальпа",hu:"Будапешт",is:"Рейкьявик",in:"Нью-Дели",
+      id:"Джакарта",ir:"Тегеран",iq:"Багдад",ie:"Дублин",il:"Иерусалим",
+      it:"Рим",jm:"Кингстон",jp:"Токио",jo:"Амман",kz:"Астана",
+      ke:"Найроби",ki:"Южная Тарава",kp:"Пхеньян",kr:"Сеул",kw:"Эль-Кувейт",
+      kg:"Бишкек",la:"Вьентьян",lv:"Рига",lb:"Бейрут",ls:"Масеру",
+      lr:"Монровия",ly:"Триполи",li:"Вадуц",lt:"Вильнюс",lu:"Люксембург",
+      mg:"Антананариву",mw:"Лилонгве",my:"Куала-Лумпур",mv:"Мале",ml:"Бамако",
+      mt:"Валлетта",mh:"Маджуро",mr:"Нуакшот",mu:"Порт-Луи",mx:"Мехико",
+      fm:"Паликир",md:"Кишинёв",mc:"Монако",mn:"Улан-Батор",me:"Подгорица",
+      ma:"Рабат",mz:"Мапуту",mm:"Нейпьидо",na:"Виндхук",nr:"Ярен",
+      np:"Катманду",nl:"Амстердам",nz:"Веллингтон",ni:"Манагуа",ne:"Ниамей",
+      ng:"Абуджа",mk:"Скопье",no:"Осло",om:"Маскат",pk:"Исламабад",
+      pw:"Нгерулмуд",pa:"Панама",pg:"Порт-Морсби",py:"Асунсьон",pe:"Лима",
+      ph:"Манила",pl:"Варшава",pt:"Лиссабон",qa:"Доха",ro:"Бухарест",
+      ru:"Москва",rw:"Кигали",kn:"Бастер",lc:"Кастри",vc:"Кингстаун",
+      ws:"Апиа",sm:"Сан-Марино",st:"Сан-Томе",sa:"Эр-Рияд",sn:"Дакар",
+      rs:"Белград",sc:"Виктория",sl:"Фритаун",sg:"Сингапур",sk:"Братислава",
+      si:"Любляна",sb:"Хониара",so:"Могадишо",za:"Претория",ss:"Джуба",
+      es:"Мадрид",lk:"Шри-Джаяварденепура-Котте",sd:"Хартум",sr:"Парамарибо",
+      se:"Стокгольм",ch:"Берн",sy:"Дамаск",tj:"Душанбе",tz:"Додома",
+      th:"Бангкок",tl:"Дили",tg:"Ломе",to:"Нукуалофа",tt:"Порт-оф-Спейн",
+      tn:"Тунис",tr:"Анкара",tm:"Ашхабад",tv:"Фунафути",ug:"Кампала",
+      ua:"Киев",ae:"Абу-Даби",gb:"Лондон",us:"Вашингтон",uy:"Монтевидео",
+      uz:"Ташкент",vu:"Порт-Вила",va:"Ватикан",ve:"Каракас",vn:"Ханой",
+      ye:"Сана",zm:"Лусака",zw:"Хараре",xk:"Приштина",tw:"Тайбэй"
     };
 
     const easyCodes = ["ru","us","gb","fr","de","it","es","pt","nl","be",
@@ -359,36 +355,37 @@ ye:"Сана",zm:"Лусака",zw:"Хараре",xk:"Приштина",tw:"Та
       .filter(c => countries[c]);
 
     const MODES = {
-      easy:    { time: 15, type: "flag",    pool: easyCodes },
-      hard:    { time: 7,  type: "flag",    pool: Object.keys(countries) },
-      reverse: { time: 12, type: "reverse", pool: easyCodes },
-      capital: { time: 12, type: "capital",
-                 pool: easyCodes.filter(c => capitals[c]) },
-      capital_hard: { time: 10, type: "capital",
-                 pool: Object.keys(capitals).filter(c => countries[c]) }
+      easy:         { time: 15, type: "flag",    pool: easyCodes },
+      hard:         { time: 7,  type: "flag",    pool: Object.keys(countries) },
+      reverse:      { time: 12, type: "reverse", pool: easyCodes },
+      capital:      { time: 12, type: "capital", pool: easyCodes.filter(c => capitals[c]) },
+      capital_hard: { time: 10, type: "capital", pool: Object.keys(capitals).filter(c => countries[c]) }
     };
+
     const MODE_NAMES = ["easy", "hard", "reverse", "capital", "capital_hard"];
 
     let mode = "easy", score = 0, streak = 0, bestStreak = 0,
         lives = 3, timer = null, locked = false;
 
-    function show(id) {function openCategory(category) {
-  if (category === 'geo') {
-    document.getElementById('homeMenu').classList.add('hide');
-    document.getElementById('geoMenu').classList.remove('hide');
-  }
-}
-
-function backHome() {
-  document.getElementById('geoMenu').classList.add('hide');
-  document.getElementById('homeMenu').classList.remove('hide');
-}
-
-function comingSoon(name) {
-  alert(name + ' — скоро появится!');
-}
+    function show(id) {
       ["menu", "game", "over"].forEach(x =>
         document.getElementById(x).classList.toggle("hide", x !== id));
+    }
+
+    function openCategory(category) {
+      if (category === 'geo') {
+        document.getElementById('homeMenu').classList.add('hide');
+        document.getElementById('geoMenu').classList.remove('hide');
+      }
+    }
+
+    function backHome() {
+      document.getElementById('geoMenu').classList.add('hide');
+      document.getElementById('homeMenu').classList.remove('hide');
+    }
+
+    function comingSoon(name) {
+      alert(name + ' — скоро появится!');
     }
 
     function lsGet(key) {
@@ -401,7 +398,7 @@ function comingSoon(name) {
       let done = false;
       const finish = v => { if (!done) { done = true; cb(v); } };
       try {
-        if (tg.CloudStorage && tg.isVersionAtLeast("6.9")) {
+        if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
           tg.CloudStorage.getItem(key, (e, v) =>
             finish(Math.max(parseInt(v) || 0, lsGet(key))));
           setTimeout(() => finish(lsGet(key)), 1500);
@@ -415,7 +412,7 @@ function comingSoon(name) {
       const key = "rec_" + m;
       try { localStorage.setItem(key, String(v)); } catch (e) {}
       try {
-        if (tg.CloudStorage && tg.isVersionAtLeast("6.9")) {
+        if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
           tg.CloudStorage.setItem(key, String(v));
         }
       } catch (e) {}
@@ -425,7 +422,8 @@ function comingSoon(name) {
       clearInterval(timer);
       show("menu");
       MODE_NAMES.forEach(m => getRecord(m, v => {
-        document.getElementById("rec_" + m).textContent = "Рекорд: " + v;
+        const el = document.getElementById("rec_" + m);
+        if (el) el.textContent = "Рекорд: " + v;
       }));
     }
 
@@ -467,8 +465,8 @@ function comingSoon(name) {
       } else {
         lives--; streak = 0;
       }
-      buttons[right].style.background = "#4caf50";
-      if (chosen && !ok) buttons[chosen].style.background = "#e53935";
+      if (buttons[right]) buttons[right].style.background = "#4caf50";
+      if (chosen && !ok && buttons[chosen]) buttons[chosen].style.background = "#e53935";
       updateHud();
       setTimeout(() => lives <= 0 ? endGame() : next(), ok ? 800 : 1500);
     }
@@ -501,8 +499,7 @@ function comingSoon(name) {
       opts.forEach(c => {
         const b = document.createElement("button");
         if (M.type === "reverse") {
-          b.innerHTML = '<span class="fi fi-' + c +
-            '" style="font-size:3em;margin:0"></span>';
+          b.innerHTML = '<span class="fi fi-' + c + '" style="font-size:3em;margin:0"></span>';
         } else if (M.type === "capital") {
           b.textContent = capitals[c];
         } else {
