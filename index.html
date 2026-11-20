@@ -5,7 +5,138 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
-  <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 18px;
+  min-height: 100vh;
+  background: #0b1020;
+  color: #fff;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: #9ca9c5;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 900;
+  margin-top: 20px;
+  background: linear-gradient(90deg,#55d6ff,#a47bff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.section-title {
+  text-align: left;
+  font-size: 20px;
+  margin: 28px 0 14px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.category {
+  background: #19233a;
+  border: 1px solid #293958;
+  border-radius: 18px;
+  padding: 20px 10px;
+  min-height: 125px;
+  text-align: left;
+  cursor: pointer;
+  color: white;
+}
+
+.category:active {
+  transform: scale(.96);
+}
+
+.category .icon {
+  font-size: 34px;
+}
+
+.category h3 {
+  margin: 12px 0 5px;
+  font-size: 17px;
+}
+
+.category small {
+  color: #aab7d0;
+}
+
+.main-card {
+  background: linear-gradient(135deg,#293f75,#553b91);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.main-card button {
+  background: #fff;
+  color: #18213b;
+  border: 0;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+button {
+  border: 1px solid #354565;
+  border-radius: 13px;
+  background: #202d49;
+  color: white;
+  cursor: pointer;
+}
+
+#menu button {
+  background: #202d49;
+  border: 1px solid #354565;
+  border-radius: 13px;
+  color: white;
+}
+
+#prompt {
+  font-size: 27px;
+}
+
+#hud {
+  margin: 15px;
+}
+
+#barWrap {
+  border-radius: 10px;
+  height: 9px;
+}
+
+#barFill {
+  background: linear-gradient(90deg,#43d9ff,#9b73ff);
+}
+
+.back-button {
+  background: transparent;
+  border: 1px solid #354565;
+  width: auto;
+  padding: 10px 18px;
+  margin: 10px 0;
+}
+
+.hide {
+  display: none !important;
+}  <style>
     body { font-family: sans-serif; text-align: center; margin: 0;
            padding: 8px; background: var(--tg-theme-bg-color);
            color: var(--tg-theme-text-color); }
@@ -29,25 +160,85 @@
 <body>
 
   <div id="menu">
-    <h1>Угадай флаг</h1>
-    <p>Выбери режим</p>
-    <button onclick="startGame('easy')">Лёгкий<br>
-      <small>известные страны · 15 с</small><br>
-      <small id="rec_easy"></small></button>
-    <button onclick="startGame('hard')">Сложный<br>
-      <small>все страны · 7 с</small><br>
-      <small id="rec_hard"></small></button>
-    <button onclick="startGame('reverse')">Наоборот<br>
-      <small>выбери флаг по названию · 12 с</small><br>
-      <small id="rec_reverse"></small></button>
-    <button onclick="startGame('capital')">Столицы: лёгкий<br>
-      <small>известные страны · 12 с</small><br>
-      <small id="rec_capital"></small></button>
-    <button onclick="startGame('capital_hard')">Столицы: сложный<br>
-      <small>все страны · 10 с</small><br>
-      <small id="rec_capital_hard"></small></button>
+
+
+  <div id="homeMenu">
+    <div class="logo">🎮 GAME ZONE</div>
+    <p class="subtitle">Твоя игровая территория</p>
+
+    <div class="main-card">
+      <h2>🏆 Добро пожаловать!</h2>
+      <p>Играй, набирай очки и становись лучшим.</p>
+    </div>
+
+    <h2 class="section-title">Выбери категорию</h2>
+
+    <div class="category-grid">
+
+      <button class="category" onclick="openCategory('geo')">
+        <div class="icon">🌍</div>
+        <h3>География</h3>
+        <small>Флаги и столицы</small>
+      </button>
+
+      <button class="category" onclick="comingSoon('Спорт')">
+        <div class="icon">⚽</div>
+        <h3>Спорт</h3>
+        <small>Футбол и другие виды</small>
+      </button>
+
+      <button class="category" onclick="comingSoon('Эрудиция')">
+        <div class="icon">🧠</div>
+        <h3>Эрудиция</h3>
+        <small>Проверь свои знания</small>
+      </button>
+
+      <button class="category" onclick="comingSoon('Развлечения')">
+        <div class="icon">🎬</div>
+        <h3>Развлечения</h3>
+        <small>Кино и музыка</small>
+      </button>
+
+      <button class="category" onclick="comingSoon('Логика')">
+        <div class="icon">🔢</div>
+        <h3>Логика</h3>
+        <small>Загадки и головоломки</small>
+      </button>
+
+    </div>
   </div>
 
+  <div id="geoMenu" class="hide">
+    <h1>🌍 География</h1>
+    <p>Выбери игровой режим</p>
+
+    <button onclick="startGame('easy')">
+      Лёгкий<br><small id="rec_easy"></small>
+    </button>
+
+    <button onclick="startGame('hard')">
+      Сложный<br><small id="rec_hard"></small>
+    </button>
+
+    <button onclick="startGame('reverse')">
+      Наоборот<br><small id="rec_reverse"></small>
+    </button>
+
+    <button onclick="startGame('capital')">
+      Столицы: лёгкий<br><small id="rec_capital"></small>
+    </button>
+
+    <button onclick="startGame('capital_hard')">
+      Столицы: сложный<br><small id="rec_capital_hard"></small>
+    </button>
+
+    <button class="back-button" onclick="backHome()">
+      ← Назад
+    </button>
+  </div>
+
+  </div>
+    
   <div id="game" class="hide">
     <div id="hud"></div>
     <div id="barWrap"><div id="barFill"></div></div>
@@ -180,7 +371,21 @@ ye:"Сана",zm:"Лусака",zw:"Хараре",xk:"Приштина",tw:"Та
     let mode = "easy", score = 0, streak = 0, bestStreak = 0,
         lives = 3, timer = null, locked = false;
 
-    function show(id) {
+    function show(id) {function openCategory(category) {
+  if (category === 'geo') {
+    document.getElementById('homeMenu').classList.add('hide');
+    document.getElementById('geoMenu').classList.remove('hide');
+  }
+}
+
+function backHome() {
+  document.getElementById('geoMenu').classList.add('hide');
+  document.getElementById('homeMenu').classList.remove('hide');
+}
+
+function comingSoon(name) {
+  alert(name + ' — скоро появится!');
+}
       ["menu", "game", "over"].forEach(x =>
         document.getElementById(x).classList.toggle("hide", x !== id));
     }
