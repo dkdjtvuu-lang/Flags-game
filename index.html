@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 18px;
+      padding: 16px;
       min-height: 100vh;
       background: #0b1020;
       color: #fff;
       text-align: center;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .hide { display: none !important; }
 
     h1 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 900;
-      letter-spacing: 1px;
-      margin: 24px 0 8px;
+      margin: 20px 0 10px;
     }
 
     .subtitle {
       color: #9ca9c5;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+      font-size: 15px;
     }
 
     .logo {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 900;
-      margin-top: 20px;
+      margin: 10px 0 6px;
       background: linear-gradient(90deg, #55d6ff, #a47bff);
       -webkit-background-clip: text;
       background-clip: text;
@@ -43,8 +43,8 @@
 
     .section-title {
       text-align: left;
-      font-size: 20px;
-      margin: 28px 0 14px;
+      font-size: 18px;
+      margin: 24px 0 12px;
     }
 
     .category-grid {
@@ -56,74 +56,105 @@
     .category {
       background: #19233a;
       border: 1px solid #293958;
-      border-radius: 18px;
-      padding: 20px 10px;
-      min-height: 125px;
+      border-radius: 16px;
+      padding: 18px 10px;
+      min-height: 110px;
       text-align: left;
-      cursor: pointer;
       color: white;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      line-height: 1.3;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
-    .category:active { transform: scale(0.96); }
-    .category .icon { font-size: 34px; }
-    .category h3 { margin: 12px 0 5px; font-size: 17px; }
-    .category small { color: #aab7d0; }
+    .category:active {
+      transform: scale(0.97);
+      background: #243052;
+    }
+
+    .category .icon {
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+
+    .category h3 {
+      margin: 6px 0 4px;
+      font-size: 16px;
+    }
+
+    .category small {
+      color: #aab7d0;
+      font-size: 12px;
+    }
 
     .main-card {
       background: linear-gradient(135deg, #293f75, #553b91);
-      border-radius: 20px;
-      padding: 20px;
-      margin-top: 20px;
+      border-radius: 16px;
+      padding: 18px;
+      margin: 16px 0;
       text-align: left;
     }
 
-    button {
+    .main-card h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .main-card p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    button.mode-btn {
+      display: block;
+      width: 100%;
+      max-width: 340px;
+      margin: 10px auto;
+      padding: 14px;
+      font-size: 17px;
       border: 1px solid #354565;
-      border-radius: 13px;
+      border-radius: 12px;
       background: #202d49;
       color: white;
       cursor: pointer;
-      display: block;
-      width: 90%;
-      margin: 8px auto;
-      padding: 14px;
-      font-size: 18px;
     }
 
-    .main-card button {
-      background: #fff;
-      color: #18213b;
-      border: 0;
-      border-radius: 12px;
-      font-weight: bold;
+    button.mode-btn:active {
+      background: #2a3a5e;
     }
 
     .back-button {
+      display: inline-block;
+      margin: 18px auto 10px;
+      padding: 10px 22px;
       background: transparent;
       border: 1px solid #354565;
-      width: auto;
-      padding: 10px 18px;
-      margin: 10px auto;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
     }
 
     #prompt {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
-      margin: 20px 10px;
-      line-height: 1.4;
+      margin: 18px 8px;
+      line-height: 1.35;
     }
 
     #hud {
-      font-size: 20px;
-      margin: 15px 0 6px;
+      font-size: 18px;
+      margin: 12px 0 6px;
     }
 
     #barWrap {
       width: 90%;
-      height: 10px;
-      margin: 8px auto 4px;
-      background: rgba(128, 128, 128, 0.3);
-      border-radius: 5px;
+      height: 8px;
+      margin: 6px auto 4px;
+      background: rgba(128,128,128,0.3);
+      border-radius: 4px;
       overflow: hidden;
     }
 
@@ -133,9 +164,37 @@
       background: linear-gradient(90deg, #43d9ff, #9b73ff);
     }
 
+    #timeText {
+      font-size: 14px;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
     .fi {
-      font-size: 8em;
-      margin: 16px;
+      font-size: 7em;
+      margin: 12px;
+    }
+
+    #answers {
+      margin-top: 10px;
+    }
+
+    #answers button {
+      display: block;
+      width: 90%;
+      max-width: 340px;
+      margin: 8px auto;
+      padding: 13px 10px;
+      font-size: 16px;
+      border: 1px solid #354565;
+      border-radius: 12px;
+      background: #202d49;
+      color: white;
+      cursor: pointer;
+    }
+
+    #answers button:active {
+      background: #2a3a5e;
     }
 
     .grid {
@@ -147,102 +206,110 @@
     }
 
     .grid button {
-      width: 100%;
-      margin: 0;
-      padding: 12px 6px;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 12px 6px !important;
     }
 
-    small {
-      font-size: 13px;
-      opacity: 0.8;
+    #over button {
+      display: block;
+      width: 90%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 14px;
+      font-size: 17px;
+      border: 1px solid #354565;
+      border-radius: 12px;
+      background: #202d49;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <div id="menu">
-    <!-- Главное меню -->
-    <div id="homeMenu">
-      <div class="logo">🎮 GAME ZONE</div>
-      <p class="subtitle">Твоя игровая территория</p>
+  <!-- ГЛАВНОЕ МЕНЮ -->
+  <div id="homeMenu">
+    <div class="logo">🎮 GAME ZONE</div>
+    <p class="subtitle">Твоя игровая территория</p>
 
-      <div class="main-card">
-        <h2>🏆 Добро пожаловать!</h2>
-        <p>Играй, набирай очки и становись лучшим.</p>
-      </div>
-
-      <h2 class="section-title">Выбери категорию</h2>
-
-      <div class="category-grid">
-        <button class="category" onclick="openCategory('geo')">
-          <div class="icon">🌍</div>
-          <h3>География</h3>
-          <small>Флаги и столицы</small>
-        </button>
-
-        <button class="category" onclick="openCategory('sport')">
-          <div class="icon">⚽</div>
-          <h3>Спорт</h3>
-          <small>Футбол и другие виды</small>
-        </button>
-
-        <button class="category" onclick="openCategory('erudition')">
-          <div class="icon">🧠</div>
-          <h3>Эрудиция</h3>
-          <small>Проверь свои знания</small>
-        </button>
-
-        <button class="category" onclick="comingSoon('Развлечения')">
-          <div class="icon">🎬</div>
-          <h3>Развлечения</h3>
-          <small>Кино и музыка</small>
-        </button>
-
-        <button class="category" onclick="comingSoon('Логика')">
-          <div class="icon">🔢</div>
-          <h3>Логика</h3>
-          <small>Загадки и головоломки</small>
-        </button>
-      </div>
+    <div class="main-card">
+      <h2>🏆 Добро пожаловать!</h2>
+      <p>Играй, набирай очки и становись лучшим.</p>
     </div>
 
-    <!-- Меню География -->
-    <div id="geoMenu" class="hide">
-      <h1>🌍 География</h1>
-      <p>Выбери игровой режим</p>
+    <h2 class="section-title">Выбери категорию</h2>
 
-      <button onclick="startGame('easy')">Лёгкий<br><small id="rec_easy"></small></button>
-      <button onclick="startGame('hard')">Сложный<br><small id="rec_hard"></small></button>
-      <button onclick="startGame('reverse')">Наоборот<br><small id="rec_reverse"></small></button>
-      <button onclick="startGame('capital')">Столицы: лёгкий<br><small id="rec_capital"></small></button>
-      <button onclick="startGame('capital_hard')">Столицы: сложный<br><small id="rec_capital_hard"></small></button>
+    <div class="category-grid">
+      <button class="category" id="btn-geo">
+        <div class="icon">🌍</div>
+        <h3>География</h3>
+        <small>Флаги и столицы</small>
+      </button>
 
-      <button class="back-button" onclick="backHome()">← Назад</button>
-    </div>
+      <button class="category" id="btn-sport">
+        <div class="icon">⚽</div>
+        <h3>Спорт</h3>
+        <small>Футбол и другие виды</small>
+      </button>
 
-    <!-- Меню Спорт -->
-    <div id="sportMenu" class="hide">
-      <h1>⚽ Спорт</h1>
-      <p>Выбери игровой режим</p>
+      <button class="category" id="btn-erudition">
+        <div class="icon">🧠</div>
+        <h3>Эрудиция</h3>
+        <small>Проверь свои знания</small>
+      </button>
 
-      <button onclick="startGame('sport_easy')">Лёгкий<br><small id="rec_sport_easy"></small></button>
-      <button onclick="startGame('sport_hard')">Сложный<br><small id="rec_sport_hard"></small></button>
+      <button class="category" id="btn-entertainment">
+        <div class="icon">🎬</div>
+        <h3>Развлечения</h3>
+        <small>Кино и музыка</small>
+      </button>
 
-      <button class="back-button" onclick="backHome()">← Назад</button>
-    </div>
-
-    <!-- Меню Эрудиция -->
-    <div id="eruditionMenu" class="hide">
-      <h1>🧠 Эрудиция</h1>
-      <p>Выбери игровой режим</p>
-
-      <button onclick="startGame('erudition_easy')">Лёгкий<br><small id="rec_erudition_easy"></small></button>
-      <button onclick="startGame('erudition_hard')">Сложный<br><small id="rec_erudition_hard"></small></button>
-
-      <button class="back-button" onclick="backHome()">← Назад</button>
+      <button class="category" id="btn-logic">
+        <div class="icon">🔢</div>
+        <h3>Логика</h3>
+        <small>Загадки и головоломки</small>
+      </button>
     </div>
   </div>
 
+  <!-- МЕНЮ ГЕОГРАФИЯ -->
+  <div id="geoMenu" class="hide">
+    <h1>🌍 География</h1>
+    <p class="subtitle">Выбери игровой режим</p>
+
+    <button class="mode-btn" data-mode="easy">Лёгкий<br><small id="rec_easy"></small></button>
+    <button class="mode-btn" data-mode="hard">Сложный<br><small id="rec_hard"></small></button>
+    <button class="mode-btn" data-mode="reverse">Наоборот<br><small id="rec_reverse"></small></button>
+    <button class="mode-btn" data-mode="capital">Столицы: лёгкий<br><small id="rec_capital"></small></button>
+    <button class="mode-btn" data-mode="capital_hard">Столицы: сложный<br><small id="rec_capital_hard"></small></button>
+
+    <button class="back-button" id="back-geo">← Назад</button>
+  </div>
+
+  <!-- МЕНЮ СПОРТ -->
+  <div id="sportMenu" class="hide">
+    <h1>⚽ Спорт</h1>
+    <p class="subtitle">Выбери игровой режим</p>
+
+    <button class="mode-btn" data-mode="sport_easy">Лёгкий<br><small id="rec_sport_easy"></small></button>
+    <button class="mode-btn" data-mode="sport_hard">Сложный<br><small id="rec_sport_hard"></small></button>
+
+    <button class="back-button" id="back-sport">← Назад</button>
+  </div>
+
+  <!-- МЕНЮ ЭРУДИЦИЯ -->
+  <div id="eruditionMenu" class="hide">
+    <h1>🧠 Эрудиция</h1>
+    <p class="subtitle">Выбери игровой режим</p>
+
+    <button class="mode-btn" data-mode="erudition_easy">Лёгкий<br><small id="rec_erudition_easy"></small></button>
+    <button class="mode-btn" data-mode="erudition_hard">Сложный<br><small id="rec_erudition_hard"></small></button>
+
+    <button class="back-button" id="back-erudition">← Назад</button>
+  </div>
+
+  <!-- ИГРА -->
   <div id="game" class="hide">
     <div id="hud"></div>
     <div id="barWrap"><div id="barFill"></div></div>
@@ -252,11 +319,12 @@
     <div id="answers"></div>
   </div>
 
+  <!-- КОНЕЦ ИГРЫ -->
   <div id="over" class="hide">
     <h1>Игра окончена</h1>
-    <p id="overText" style="font-size:20px;line-height:1.6"></p>
-    <button onclick="startGame(mode)">Играть снова</button>
-    <button onclick="openMenu()">В меню</button>
+    <p id="overText" style="font-size:18px;line-height:1.5;margin:16px 0;"></p>
+    <button id="btn-again">Играть снова</button>
+    <button id="btn-to-menu">В меню</button>
   </div>
 
   <script>
@@ -266,7 +334,7 @@
       tg.expand();
     }
 
-    // ========== ГЕОГРАФИЯ ==========
+    // ========== ДАННЫЕ ==========
     const countries = {
       af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
       ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
@@ -361,10 +429,8 @@
       "ch","at","se","no","fi","dk","pl","ua","by","kz","tr","gr","cn",
       "jp","kr","in","br","ar","mx","ca","au","eg","za","il","sa","ir",
       "cz","hu","ro","bg","rs","hr","ie","is","th","vn","id","cu","cl",
-      "co","pe","ve","nz","ae","ge","am","az","uz"]
-      .filter(c => countries[c]);
+      "co","pe","ve","nz","ae","ge","am","az","uz"].filter(c => countries[c]);
 
-    // ========== СПОРТ ==========
     const sportQuestions = [
       { q: "Кто выиграл чемпионат мира по футболу 2018 года?", a: ["Франция", "Хорватия", "Бельгия", "Англия"], correct: 0 },
       { q: "В каком клубе играет Криштиану Роналду (2024)?", a: ["Аль-Наср", "Манчестер Юнайтед", "Ювентус", "Реал Мадрид"], correct: 0 },
@@ -375,7 +441,6 @@
       { q: "Сколько сетов нужно выиграть в теннисном матче Большого шлема (мужчины)?", a: ["3", "2", "4", "5"], correct: 0 },
       { q: "Какой клуб называют «Галатасарай»?", a: ["Турецкий", "Испанский", "Итальянский", "Французский"], correct: 0 },
       { q: "Кто выиграл Олимпиаду 2014 в Сочи (хоккей, мужчины)?", a: ["Канада", "Швеция", "Россия", "США"], correct: 0 },
-      { q: "Как называется удар в боксе ниже пояса?", a: ["Фол", "Нокаут", "Хук", "Джеб"], correct: 0 },
       { q: "Сколько очков даёт трёхочковый бросок в баскетболе?", a: ["3", "2", "1", "4"], correct: 0 },
       { q: "Какая страна изобрела футбол?", a: ["Англия", "Бразилия", "Италия", "Германия"], correct: 0 },
       { q: "Кто такой Усэйн Болт?", a: ["Легкоатлет", "Пловец", "Боксёр", "Футболист"], correct: 0 },
@@ -383,7 +448,6 @@
       { q: "Сколько минут длится тайм в футболе?", a: ["45", "30", "60", "40"], correct: 0 }
     ];
 
-    // ========== ЭРУДИЦИЯ ==========
     const eruditionQuestions = [
       { q: "Кто написал роман «Война и мир»?", a: ["Лев Толстой", "Фёдор Достоевский", "Александр Пушкин", "Антон Чехов"], correct: 0 },
       { q: "Какая планета самая большая в Солнечной системе?", a: ["Юпитер", "Сатурн", "Земля", "Нептун"], correct: 0 },
@@ -402,69 +466,36 @@
       { q: "Как называется столица Франции?", a: ["Париж", "Марсель", "Лион", "Ницца"], correct: 0 }
     ];
 
-    // ========== РЕЖИМЫ ==========
     const MODES = {
-      // География
       easy:         { time: 15, type: "flag",    pool: easyCodes },
       hard:         { time: 7,  type: "flag",    pool: Object.keys(countries) },
       reverse:      { time: 12, type: "reverse", pool: easyCodes },
       capital:      { time: 12, type: "capital", pool: easyCodes.filter(c => capitals[c]) },
       capital_hard: { time: 10, type: "capital", pool: Object.keys(capitals).filter(c => countries[c]) },
-
-      // Спорт
       sport_easy:   { time: 15, type: "quiz", questions: sportQuestions },
       sport_hard:   { time: 10, type: "quiz", questions: sportQuestions },
-
-      // Эрудиция
       erudition_easy: { time: 15, type: "quiz", questions: eruditionQuestions },
       erudition_hard: { time: 10, type: "quiz", questions: eruditionQuestions }
     };
 
-    const MODE_NAMES = [
-      "easy", "hard", "reverse", "capital", "capital_hard",
-      "sport_easy", "sport_hard",
-      "erudition_easy", "erudition_hard"
-    ];
+    const MODE_NAMES = Object.keys(MODES);
 
-    let mode = "easy", score = 0, streak = 0, bestStreak = 0,
-        lives = 3, timer = null, locked = false;
+    let mode = "easy", score = 0, streak = 0, bestStreak = 0, lives = 3, timer = null, locked = false;
 
-    // ========== ФУНКЦИИ МЕНЮ ==========
-    function show(id) {
-      ["menu", "game", "over"].forEach(x =>
-        document.getElementById(x).classList.toggle("hide", x !== id));
+    // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+    function hideAll() {
+      ["homeMenu", "geoMenu", "sportMenu", "eruditionMenu", "game", "over"].forEach(id => {
+        document.getElementById(id).classList.add("hide");
+      });
     }
 
-    function openCategory(category) {
-      document.getElementById('homeMenu').classList.add('hide');
-      document.getElementById('geoMenu').classList.add('hide');
-      document.getElementById('sportMenu').classList.add('hide');
-      document.getElementById('eruditionMenu').classList.add('hide');
-
-      if (category === 'geo') {
-        document.getElementById('geoMenu').classList.remove('hide');
-      } else if (category === 'sport') {
-        document.getElementById('sportMenu').classList.remove('hide');
-      } else if (category === 'erudition') {
-        document.getElementById('eruditionMenu').classList.remove('hide');
-      }
+    function showScreen(id) {
+      hideAll();
+      document.getElementById(id).classList.remove("hide");
     }
 
-    function backHome() {
-      document.getElementById('geoMenu').classList.add('hide');
-      document.getElementById('sportMenu').classList.add('hide');
-      document.getElementById('eruditionMenu').classList.add('hide');
-      document.getElementById('homeMenu').classList.remove('hide');
-    }
-
-    function comingSoon(name) {
-      alert(name + ' — скоро появится!');
-    }
-
-    // ========== РЕКОРДЫ ==========
     function lsGet(key) {
-      try { return parseInt(localStorage.getItem(key)) || 0; }
-      catch (e) { return 0; }
+      try { return parseInt(localStorage.getItem(key)) || 0; } catch(e) { return 0; }
     }
 
     function getRecord(m, cb) {
@@ -473,19 +504,223 @@
       const finish = v => { if (!done) { done = true; cb(v); } };
       try {
         if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
-          tg.CloudStorage.getItem(key, (e, v) =>
-            finish(Math.max(parseInt(v) || 0, lsGet(key))));
-          setTimeout(() => finish(lsGet(key)), 1500);
+          tg.CloudStorage.getItem(key, (e, v) => finish(Math.max(parseInt(v) || 0, lsGet(key))));
+          setTimeout(() => finish(lsGet(key)), 1200);
           return;
         }
-      } catch (e) {}
+      } catch(e) {}
       finish(lsGet(key));
     }
 
     function setRecord(m, v) {
       const key = "rec_" + m;
-      try { localStorage.setItem(key, String(v)); } catch (e) {}
+      try { localStorage.setItem(key, String(v)); } catch(e) {}
       try {
         if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
           tg.CloudStorage.setItem(key, String(v));
-        
+        }
+      } catch(e) {}
+    }
+
+    function updateRecords() {
+      MODE_NAMES.forEach(m => {
+        getRecord(m, v => {
+          const el = document.getElementById("rec_" + m);
+          if (el) el.textContent = "Рекорд: " + v;
+        });
+      });
+    }
+
+    // ========== МЕНЮ ==========
+    function openHome() {
+      showScreen("homeMenu");
+      updateRecords();
+    }
+
+    function openGeo() {
+      showScreen("geoMenu");
+      updateRecords();
+    }
+
+    function openSport() {
+      showScreen("sportMenu");
+      updateRecords();
+    }
+
+    function openErudition() {
+      showScreen("eruditionMenu");
+      updateRecords();
+    }
+
+    // ========== ИГРА ==========
+    function updateHud() {
+      document.getElementById("hud").textContent =
+        "❤️".repeat(lives) + "🖤".repeat(3 - lives) + "   🔥 " + streak + "   ✅ " + score;
+    }
+
+    function startGame(m) {
+      mode = m;
+      score = 0;
+      streak = 0;
+      bestStreak = 0;
+      lives = 3;
+      locked = false;
+      showScreen("game");
+      updateHud();
+      next();
+    }
+
+    function endGame() {
+      clearInterval(timer);
+      getRecord(mode, rec => {
+        const isNew = score > rec;
+        if (isNew) setRecord(mode, score);
+        document.getElementById("overText").innerHTML =
+          "Угадано: <b>" + score + "</b><br>" +
+          "Лучшая серия: <b>" + bestStreak + "</b><br>" +
+          (isNew ? "🏆 Новый рекорд!" : "Рекорд: <b>" + rec + "</b>");
+        showScreen("over");
+      });
+    }
+
+    function answer(chosen, right, buttons) {
+      if (locked) return;
+      locked = true;
+      clearInterval(timer);
+
+      const ok = chosen === right;
+      if (ok) {
+        score++;
+        streak++;
+        if (streak > bestStreak) bestStreak = streak;
+      } else {
+        lives--;
+        streak = 0;
+      }
+
+      if (buttons[right]) buttons[right].style.background = "#4caf50";
+      if (chosen !== null && !ok && buttons[chosen]) buttons[chosen].style.background = "#e53935";
+
+      updateHud();
+      setTimeout(() => {
+        if (lives <= 0) endGame();
+        else next();
+      }, ok ? 700 : 1400);
+    }
+
+    function startTimer(seconds, onTimeout) {
+      let left = seconds;
+      const bar = document.getElementById("barFill");
+      const text = document.getElementById("timeText");
+
+      bar.style.transition = "none";
+      bar.style.width = "100%";
+      void bar.offsetWidth;
+      bar.style.transition = "width 1s linear";
+      text.textContent = "⏱ " + left + " с";
+
+      clearInterval(timer);
+      timer = setInterval(() => {
+        left--;
+        text.textContent = "⏱ " + Math.max(left, 0) + " с";
+        bar.style.width = (Math.max(left, 0) / seconds * 100) + "%";
+        if (left <= 0) {
+          clearInterval(timer);
+          onTimeout();
+        }
+      }, 1000);
+    }
+
+    function next() {
+      locked = false;
+      const M = MODES[mode];
+      const flagEl = document.getElementById("flag");
+      const promptEl = document.getElementById("prompt");
+      const box = document.getElementById("answers");
+
+      box.innerHTML = "";
+      box.className = "";
+
+      // === ВИКТОРИНА (Спорт / Эрудиция) ===
+      if (M.type === "quiz") {
+        flagEl.style.display = "none";
+        const q = M.questions[Math.floor(Math.random() * M.questions.length)];
+        promptEl.textContent = q.q;
+
+        const opts = q.a.map((text, i) => ({ text, i })).sort(() => Math.random() - 0.5);
+        const buttons = {};
+
+        opts.forEach(opt => {
+          const b = document.createElement("button");
+          b.textContent = opt.text;
+          b.onclick = () => answer(opt.i, q.correct, buttons);
+          buttons[opt.i] = b;
+          box.appendChild(b);
+        });
+
+        startTimer(M.time, () => answer(null, q.correct, buttons));
+        return;
+      }
+
+      // === ГЕОГРАФИЯ ===
+      const pool = M.pool;
+      const right = pool[Math.floor(Math.random() * pool.length)];
+      const opts = pool.filter(c => c !== right)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .concat(right)
+        .sort(() => Math.random() - 0.5);
+
+      if (M.type === "flag") {
+        flagEl.className = "fi fi-" + right;
+        flagEl.style.display = "";
+        promptEl.textContent = "";
+      } else {
+        flagEl.style.display = "none";
+        promptEl.textContent = countries[right];
+      }
+
+      if (M.type === "reverse") box.className = "grid";
+
+      const buttons = {};
+      opts.forEach(c => {
+        const b = document.createElement("button");
+        if (M.type === "reverse") {
+          b.innerHTML = '<span class="fi fi-' + c + '" style="font-size:2.8em;margin:0;"></span>';
+        } else if (M.type === "capital") {
+          b.textContent = capitals[c];
+        } else {
+          b.textContent = countries[c];
+        }
+        b.onclick = () => answer(c, right, buttons);
+        buttons[c] = b;
+        box.appendChild(b);
+      });
+
+      startTimer(M.time, () => answer(null, right, buttons));
+    }
+
+    // ========== ПРИВЯЗКА КНОПОК ==========
+    document.getElementById("btn-geo").onclick = openGeo;
+    document.getElementById("btn-sport").onclick = openSport;
+    document.getElementById("btn-erudition").onclick = openErudition;
+    document.getElementById("btn-entertainment").onclick = () => alert("Развлечения — скоро появится!");
+    document.getElementById("btn-logic").onclick = () => alert("Логика — скоро появится!");
+
+    document.getElementById("back-geo").onclick = openHome;
+    document.getElementById("back-sport").onclick = openHome;
+    document.getElementById("back-erudition").onclick = openHome;
+
+    document.getElementById("btn-again").onclick = () => startGame(mode);
+    document.getElementById("btn-to-menu").onclick = openHome;
+
+    // Режимные кнопки
+    document.querySelectorAll(".mode-btn").forEach(btn => {
+      btn.onclick = () => startGame(btn.dataset.mode);
+    });
+
+    // Старт
+    openHome();
+  </script>
+</body>
+</html>
