@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.6.0/css/flag-icons.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: Arial, sans-serif;
       padding: 16px;
@@ -16,244 +15,109 @@
       text-align: center;
       -webkit-tap-highlight-color: transparent;
     }
-
     .hide { display: none !important; }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 900;
-      margin: 20px 0 10px;
-    }
-
-    .subtitle {
-      color: #9ca9c5;
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-
+    h1 { font-size: 28px; font-weight: 900; margin: 20px 0 10px; }
+    .subtitle { color: #9ca9c5; margin-bottom: 20px; font-size: 15px; }
     .logo {
-      font-size: 32px;
-      font-weight: 900;
-      margin: 10px 0 6px;
+      font-size: 32px; font-weight: 900; margin: 10px 0 6px;
       background: linear-gradient(90deg, #55d6ff, #a47bff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-
-    .section-title {
-      text-align: left;
-      font-size: 18px;
-      margin: 24px 0 12px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
+    .section-title { text-align: left; font-size: 18px; margin: 24px 0 12px; }
+    .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .category {
-      background: #19233a;
-      border: 1px solid #293958;
-      border-radius: 16px;
-      padding: 18px 10px;
-      min-height: 110px;
-      text-align: left;
-      color: white;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-      line-height: 1.3;
-      -webkit-user-select: none;
-      user-select: none;
+      background: #19233a; border: 1px solid #293958; border-radius: 16px;
+      padding: 18px 10px; min-height: 110px; text-align: left; color: white;
+      cursor: pointer; width: 100%; font-size: 16px; line-height: 1.3;
+      -webkit-user-select: none; user-select: none;
     }
-
-    .category:active {
-      transform: scale(0.97);
-      background: #243052;
-    }
-
+    .category:active { transform: scale(0.97); background: #243052; }
     .category .icon { font-size: 30px; margin-bottom: 6px; }
     .category h3 { margin: 6px 0 4px; font-size: 16px; }
     .category small { color: #aab7d0; font-size: 12px; }
-
     .main-card {
       background: linear-gradient(135deg, #293f75, #553b91);
-      border-radius: 16px;
-      padding: 18px;
-      margin: 16px 0;
-      text-align: left;
+      border-radius: 16px; padding: 18px; margin: 16px 0; text-align: left;
     }
-
     .main-card h2 { font-size: 18px; margin-bottom: 6px; }
     .main-card p { font-size: 14px; opacity: 0.9; }
-
     button.mode-btn {
-      display: block;
-      width: 100%;
-      max-width: 340px;
-      margin: 10px auto;
-      padding: 14px;
-      font-size: 17px;
-      border: 1px solid #354565;
-      border-radius: 12px;
-      background: #202d49;
-      color: white;
-      cursor: pointer;
+      display: block; width: 100%; max-width: 340px; margin: 10px auto;
+      padding: 14px; font-size: 17px; border: 1px solid #354565;
+      border-radius: 12px; background: #202d49; color: white; cursor: pointer;
     }
-
     button.mode-btn:active { background: #2a3a5e; }
-
     .back-button {
-      display: inline-block;
-      margin: 18px auto 10px;
-      padding: 10px 22px;
-      background: transparent;
-      border: 1px solid #354565;
-      border-radius: 12px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
+      display: inline-block; margin: 18px auto 10px; padding: 10px 22px;
+      background: transparent; border: 1px solid #354565; border-radius: 12px;
+      color: white; font-size: 16px; cursor: pointer;
     }
-
-    #prompt {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 18px 8px;
-      line-height: 1.35;
-    }
-
-    #hud {
-      font-size: 18px;
-      margin: 12px 0 6px;
-    }
-
+    #prompt { font-size: 20px; font-weight: bold; margin: 18px 8px; line-height: 1.35; }
+    #hud { font-size: 18px; margin: 12px 0 6px; }
     #barWrap {
-      width: 90%;
-      height: 8px;
-      margin: 6px auto 4px;
-      background: rgba(128,128,128,0.3);
-      border-radius: 4px;
-      overflow: hidden;
+      width: 90%; height: 8px; margin: 6px auto 4px;
+      background: rgba(128,128,128,0.3); border-radius: 4px; overflow: hidden;
     }
-
     #barFill {
-      height: 100%;
-      width: 100%;
+      height: 100%; width: 100%;
       background: linear-gradient(90deg, #43d9ff, #9b73ff);
     }
-
-    #timeText {
-      font-size: 14px;
-      margin-bottom: 8px;
-      opacity: 0.9;
-    }
-
-    .fi {
-      font-size: 7em;
-      margin: 12px;
-    }
-
-    #answers {
-      margin-top: 10px;
-    }
-
+    #timeText { font-size: 14px; margin-bottom: 8px; opacity: 0.9; }
+    .fi { font-size: 7em; margin: 12px; }
+    #answers { margin-top: 10px; }
     #answers button {
-      display: block;
-      width: 90%;
-      max-width: 340px;
-      margin: 8px auto;
-      padding: 13px 10px;
-      font-size: 16px;
-      border: 1px solid #354565;
-      border-radius: 12px;
-      background: #202d49;
-      color: white;
-      cursor: pointer;
+      display: block; width: 90%; max-width: 340px; margin: 8px auto;
+      padding: 13px 10px; font-size: 16px; border: 1px solid #354565;
+      border-radius: 12px; background: #202d49; color: white; cursor: pointer;
     }
-
     #answers button:active { background: #2a3a5e; }
-
     .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      width: 94%;
-      margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      width: 94%; margin: 0 auto;
     }
-
-    .grid button {
-      width: 100% !important;
-      margin: 0 !important;
-      padding: 12px 6px !important;
-    }
-
+    .grid button { width: 100% !important; margin: 0 !important; padding: 12px 6px !important; }
     #over button {
-      display: block;
-      width: 90%;
-      max-width: 300px;
-      margin: 10px auto;
-      padding: 14px;
-      font-size: 17px;
-      border: 1px solid #354565;
-      border-radius: 12px;
-      background: #202d49;
-      color: white;
-      cursor: pointer;
+      display: block; width: 90%; max-width: 300px; margin: 10px auto;
+      padding: 14px; font-size: 17px; border: 1px solid #354565;
+      border-radius: 12px; background: #202d49; color: white; cursor: pointer;
     }
-
     .club-logo {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      background: #fff;
-      border-radius: 16px;
-      padding: 10px;
-      margin: 10px auto;
-      display: block;
+      width: 140px; height: 140px; object-fit: contain; background: #fff;
+      border-radius: 16px; padding: 10px; margin: 10px auto; display: block;
     }
   </style>
 </head>
 <body>
 
-  <!-- ГЛАВНОЕ МЕНЮ -->
   <div id="homeMenu">
     <div class="logo">🎮 GAME ZONE</div>
     <p class="subtitle">Твоя игровая территория</p>
-
     <div class="main-card">
       <h2>🏆 Добро пожаловать!</h2>
       <p>Играй, набирай очки и становись лучшим.</p>
     </div>
-
     <h2 class="section-title">Выбери категорию</h2>
-
     <div class="category-grid">
       <button class="category" id="btn-geo">
         <div class="icon">🌍</div>
         <h3>География</h3>
         <small>Флаги и столицы</small>
       </button>
-
       <button class="category" id="btn-sport">
         <div class="icon">⚽</div>
         <h3>Спорт</h3>
         <small>Футбол и эмблемы</small>
       </button>
-
       <button class="category" id="btn-erudition">
         <div class="icon">🧠</div>
         <h3>Эрудиция</h3>
         <small>Проверь свои знания</small>
       </button>
-
       <button class="category" id="btn-entertainment">
         <div class="icon">🎬</div>
         <h3>Развлечения</h3>
         <small>Кино и музыка</small>
       </button>
-
       <button class="category" id="btn-logic">
         <div class="icon">🔢</div>
         <h3>Логика</h3>
@@ -262,44 +126,34 @@
     </div>
   </div>
 
-  <!-- МЕНЮ ГЕОГРАФИЯ -->
   <div id="geoMenu" class="hide">
     <h1>🌍 География</h1>
     <p class="subtitle">Выбери игровой режим</p>
-
     <button class="mode-btn" data-mode="easy">Лёгкий<br><small id="rec_easy"></small></button>
     <button class="mode-btn" data-mode="hard">Сложный<br><small id="rec_hard"></small></button>
     <button class="mode-btn" data-mode="reverse">Наоборот<br><small id="rec_reverse"></small></button>
     <button class="mode-btn" data-mode="capital">Столицы: лёгкий<br><small id="rec_capital"></small></button>
     <button class="mode-btn" data-mode="capital_hard">Столицы: сложный<br><small id="rec_capital_hard"></small></button>
-
     <button class="back-button" id="back-geo">← Назад</button>
   </div>
 
-  <!-- МЕНЮ СПОРТ -->
   <div id="sportMenu" class="hide">
     <h1>⚽ Спорт</h1>
     <p class="subtitle">Выбери игровой режим</p>
-
     <button class="mode-btn" data-mode="sport_easy">Викторина: лёгкий<br><small id="rec_sport_easy"></small></button>
     <button class="mode-btn" data-mode="sport_hard">Викторина: сложный<br><small id="rec_sport_hard"></small></button>
     <button class="mode-btn" data-mode="clubs">Эмблемы клубов<br><small id="rec_clubs"></small></button>
-
     <button class="back-button" id="back-sport">← Назад</button>
   </div>
 
-  <!-- МЕНЮ ЭРУДИЦИЯ -->
   <div id="eruditionMenu" class="hide">
     <h1>🧠 Эрудиция</h1>
     <p class="subtitle">Выбери игровой режим</p>
-
     <button class="mode-btn" data-mode="erudition_easy">Лёгкий<br><small id="rec_erudition_easy"></small></button>
     <button class="mode-btn" data-mode="erudition_hard">Сложный<br><small id="rec_erudition_hard"></small></button>
-
     <button class="back-button" id="back-erudition">← Назад</button>
   </div>
 
-  <!-- ИГРА -->
   <div id="game" class="hide">
     <div id="hud"></div>
     <div id="barWrap"><div id="barFill"></div></div>
@@ -309,7 +163,6 @@
     <div id="answers"></div>
   </div>
 
-  <!-- КОНЕЦ ИГРЫ -->
   <div id="over" class="hide">
     <h1>Игра окончена</h1>
     <p id="overText" style="font-size:18px;line-height:1.5;margin:16px 0;"></p>
@@ -318,13 +171,12 @@
   </div>
 
   <script>
-    const tg = window.Telegram?.WebApp;
+const tg = window.Telegram?.WebApp;
     if (tg) {
       tg.ready();
       tg.expand();
     }
 
-    // ========== ГЕОГРАФИЯ ==========
     const countries = {
       af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
       ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
@@ -415,13 +267,8 @@
       ye:"Сана",zm:"Лусака",zw:"Хараре",xk:"Приштина",tw:"Тайбэй"
     };
 
-    const easyCodes = ["ru","us","gb","fr","de","it","es","pt","nl","be",
-      "ch","at","se","no","fi","dk","pl","ua","by","kz","tr","gr","cn",
-      "jp","kr","in","br","ar","mx","ca","au","eg","za","il","sa","ir",
-      "cz","hu","ro","bg","rs","hr","ie","is","th","vn","id","cu","cl",
-      "co","pe","ve","nz","ae","ge","am","az","uz"].filter(c => countries[c]);
+    const easyCodes = ["ru","us","gb","fr","de","it","es","pt","nl","be","ch","at","se","no","fi","dk","pl","ua","by","kz","tr","gr","cn","jp","kr","in","br","ar","mx","ca","au","eg","za","il","sa","ir","cz","hu","ro","bg","rs","hr","ie","is","th","vn","id","cu","cl","co","pe","ve","nz","ae","ge","am","az","uz"].filter(c => countries[c]);
 
-    // ========== СПОРТ (викторина) ==========
     const sportQuestions = [
       { q: "Кто выиграл чемпионат мира по футболу 2018 года?", a: ["Франция", "Хорватия", "Бельгия", "Англия"], correct: 0 },
       { q: "В каком клубе играет Криштиану Роналду (2024)?", a: ["Аль-Наср", "Манчестер Юнайтед", "Ювентус", "Реал Мадрид"], correct: 0 },
@@ -436,7 +283,6 @@
       { q: "Сколько минут длится тайм в футболе?", a: ["45", "30", "60", "40"], correct: 0 }
     ];
 
-    // ========== ЭМБЛЕМЫ КЛУБОВ ==========
     const clubs = [
       { name: "Реал Мадрид", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg" },
       { name: "Барселона", logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg" },
@@ -460,7 +306,6 @@
       { name: "Локомотив Москва", logo: "https://upload.wikimedia.org/wikipedia/en/f/f1/FC_Lokomotiv_Moscow_logo.svg" }
     ];
 
-    // ========== ЭРУДИЦИЯ ==========
     const eruditionQuestions = [
       { q: "Кто написал роман «Война и мир»?", a: ["Лев Толстой", "Фёдор Достоевский", "Александр Пушкин", "Антон Чехов"], correct: 0 },
       { q: "Какая планета самая большая в Солнечной системе?", a: ["Юпитер", "Сатурн", "Земля", "Нептун"], correct: 0 },
@@ -476,4 +321,217 @@
       { q: "Кто такой Альберт Эйнштейн?", a: ["Физик", "Химик", "Биолог", "Математик"], correct: 0 },
       { q: "Какой океан самый большой?", a: ["Тихий", "Атлантический", "Индийский", "Северный Ледовитый"], correct: 0 },
       { q: "В каком году человек впервые полетел в космос?", a: ["1961", "1957", "1969", "1975"], correct: 0 },
-      { q: "Как называется столица Франции?", a: ["Париж", "Марсель", "Лион", "Ницца"], correct: 
+      { q: "Как называется столица Франции?", a: ["Париж", "Марсель", "Лион", "Ницца"], correct: 0 }
+    ];
+
+    const MODES = {
+      easy:         { time: 15, type: "flag",    pool: easyCodes },
+      hard:         { time: 7,  type: "flag",    pool: Object.keys(countries) },
+      reverse:      { time: 12, type: "reverse", pool: easyCodes },
+      capital:      { time: 12, type: "capital", pool: easyCodes.filter(c => capitals[c]) },
+      capital_hard: { time: 10, type: "capital", pool: Object.keys(capitals).filter(c => countries[c]) },
+      sport_easy:   { time: 15, type: "quiz", questions: sportQuestions },
+      sport_hard:   { time: 10, type: "quiz", questions: sportQuestions },
+      clubs:        { time: 12, type: "club",  pool: clubs },
+      erudition_easy: { time: 15, type: "quiz", questions: eruditionQuestions },
+      erudition_hard: { time: 10, type: "quiz", questions: eruditionQuestions }
+    };
+
+    const MODE_NAMES = Object.keys(MODES);
+    let mode = "easy", score = 0, streak = 0, bestStreak = 0, lives = 3, timer = null, locked = false;
+
+    function hideAll() {
+      ["homeMenu", "geoMenu", "sportMenu", "eruditionMenu", "game", "over"].forEach(id => {
+        document.getElementById(id).classList.add("hide");
+      });
+    }
+
+    function showScreen(id) {
+      hideAll();
+      document.getElementById(id).classList.remove("hide");
+    }
+
+    function lsGet(key) {
+      try { return parseInt(localStorage.getItem(key)) || 0; } catch(e) { return 0; }
+    }
+
+    function getRecord(m, cb) {
+      const key = "rec_" + m;
+      let done = false;
+      const finish = v => { if (!done) { done = true; cb(v); } };
+      try {
+        if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
+          tg.CloudStorage.getItem(key, (e, v) => finish(Math.max(parseInt(v) || 0, lsGet(key))));
+          setTimeout(() => finish(lsGet(key)), 1200);
+          return;
+        }
+      } catch(e) {}
+      finish(lsGet(key));
+    }
+
+    function setRecord(m, v) {
+      const key = "rec_" + m;
+      try { localStorage.setItem(key, String(v)); } catch(e) {}
+      try {
+        if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
+          tg.CloudStorage.setItem(key, String(v));
+        }
+      } catch(e) {}
+    }
+
+    function updateRecords() {
+      MODE_NAMES.forEach(m => {
+        getRecord(m, v => {
+          const el = document.getElementById("rec_" + m);
+          if (el) el.textContent = "Рекорд: " + v;
+        });
+      });
+    }
+
+    function openHome() { showScreen("homeMenu"); updateRecords(); }
+    function openGeo() { showScreen("geoMenu"); updateRecords(); }
+    function openSport() { showScreen("sportMenu"); updateRecords(); }
+    function openErudition() { showScreen("eruditionMenu"); updateRecords(); }
+
+    function updateHud() {
+      document.getElementById("hud").textContent =
+        "❤️".repeat(lives) + "🖤".repeat(3 - lives) + "   🔥 " + streak + "   ✅ " + score;
+    }
+
+    function startGame(m) {
+      mode = m; score = 0; streak = 0; bestStreak = 0; lives = 3; locked = false;
+      showScreen("game"); updateHud(); next();
+    }
+
+    function endGame() {
+      clearInterval(timer);
+      getRecord(mode, rec => {
+        const isNew = score > rec;
+        if (isNew) setRecord(mode, score);
+        document.getElementById("overText").innerHTML =
+          "Угадано: <b>" + score + "</b><br>Лучшая серия: <b>" + bestStreak + "</b><br>" +
+          (isNew ? "🏆 Новый рекорд!" : "Рекорд: <b>" + rec + "</b>");
+        showScreen("over");
+      });
+    }
+
+    function answer(chosen, right, buttons) {
+      if (locked) return;
+      locked = true;
+      clearInterval(timer);
+      const ok = chosen === right;
+      if (ok) { score++; streak++; if (streak > bestStreak) bestStreak = streak; }
+      else { lives--; streak = 0; }
+      if (buttons[right]) buttons[right].style.background = "#4caf50";
+      if (chosen !== null && !ok && buttons[chosen]) buttons[chosen].style.background = "#e53935";
+      updateHud();
+      setTimeout(() => { if (lives <= 0) endGame(); else next(); }, ok ? 700 : 1400);
+    }
+
+    function startTimer(seconds, onTimeout) {
+      let left = seconds;
+      const bar = document.getElementById("barFill");
+      const text = document.getElementById("timeText");
+      bar.style.transition = "none";
+      bar.style.width = "100%";
+      void bar.offsetWidth;
+      bar.style.transition = "width 1s linear";
+      text.textContent = "⏱ " + left + " с";
+      clearInterval(timer);
+      timer = setInterval(() => {
+        left--;
+        text.textContent = "⏱ " + Math.max(left, 0) + " с";
+        bar.style.width = (Math.max(left, 0) / seconds * 100) + "%";
+        if (left <= 0) { clearInterval(timer); onTimeout(); }
+      }, 1000);
+    }
+
+    function next() {
+      locked = false;
+      const M = MODES[mode];
+      const flagEl = document.getElementById("flag");
+      const promptEl = document.getElementById("prompt");
+      const box = document.getElementById("answers");
+      box.innerHTML = "";
+      box.className = "";
+      flagEl.style.display = "none";
+      flagEl.className = "fi";
+
+      if (M.type === "club") {
+        const pool = M.pool;
+        const right = pool[Math.floor(Math.random() * pool.length)];
+        const opts = pool.filter(c => c.name !== right.name)
+          .sort(() => Math.random() - 0.5).slice(0, 3).concat(right).sort(() => Math.random() - 0.5);
+        promptEl.innerHTML = `<img class="club-logo" src="${right.logo}" alt="logo" onerror="this.style.display='none'">`;
+        const buttons = {};
+        opts.forEach(c => {
+          const b = document.createElement("button");
+          b.textContent = c.name;
+          b.onclick = () => answer(c.name, right.name, buttons);
+          buttons[c.name] = b;
+          box.appendChild(b);
+        });
+        startTimer(M.time, () => answer(null, right.name, buttons));
+        return;
+      }
+
+      if (M.type === "quiz") {
+        const q = M.questions[Math.floor(Math.random() * M.questions.length)];
+        promptEl.textContent = q.q;
+        const opts = q.a.map((text, i) => ({ text, i })).sort(() => Math.random() - 0.5);
+        const buttons = {};
+        opts.forEach(opt => {
+          const b = document.createElement("button");
+          b.textContent = opt.text;
+          b.onclick = () => answer(opt.i, q.correct, buttons);
+          buttons[opt.i] = b;
+          box.appendChild(b);
+        });
+        startTimer(M.time, () => answer(null, q.correct, buttons));
+        return;
+      }
+
+      const pool = M.pool;
+      const right = pool[Math.floor(Math.random() * pool.length)];
+      const opts = pool.filter(c => c !== right).sort(() => Math.random() - 0.5).slice(0, 3).concat(right).sort(() => Math.random() - 0.5);
+
+      if (M.type === "flag") {
+        flagEl.className = "fi fi-" + right;
+        flagEl.style.display = "";
+        promptEl.textContent = "";
+      } else {
+        promptEl.textContent = countries[right];
+      }
+
+      if (M.type === "reverse") box.className = "grid";
+
+      const buttons = {};
+      opts.forEach(c => {
+        const b = document.createElement("button");
+        if (M.type === "reverse") {
+          b.innerHTML = '<span class="fi fi-' + c + '" style="font-size:2.8em;margin:0;"></span>';
+        } else if (M.type === "capital") {
+          b.textContent = capitals[c];
+        } else {
+          b.textContent = countries[c];
+        }
+        b.onclick = () => answer(c, right, buttons);
+        buttons[c] = b;
+        box.appendChild(b);
+      });
+
+      startTimer(M.time, () => answer(null, right, buttons));
+    }
+
+    document.getElementById("btn-geo").onclick = openGeo;
+    document.getElementById("btn-sport").onclick = openSport;
+    document.getElementById("btn-erudition").onclick = openErudition;
+    document.getElementById("btn-entertainment").onclick = () => alert("Развлечения — скоро появится!");
+    document.getElementById("btn-logic").onclick = () => alert("Логика — скоро появится!");
+    document.getElementById("back-geo").onclick = openHome;
+    document.getElementById("back-sport").onclick = openHome;
+    document.getElementById("back-erudition").onclick = openHome;
+    document.getElementById("btn-again").onclick = () => startGame(mode);
+    document.getElementById("btn-to-menu").onclick = openHome;
+    document.querySelectorAll(".mode-btn").forEach(btn => {
+      btn.onclick = (
