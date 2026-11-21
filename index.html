@@ -107,9 +107,10 @@
     }
 
     #prompt {
-      font-size: 27px;
+      font-size: 22px;
       font-weight: bold;
-      margin: 28px 10px;
+      margin: 20px 10px;
+      line-height: 1.4;
     }
 
     #hud {
@@ -160,6 +161,7 @@
 <body>
 
   <div id="menu">
+    <!-- Главное меню -->
     <div id="homeMenu">
       <div class="logo">🎮 GAME ZONE</div>
       <p class="subtitle">Твоя игровая территория</p>
@@ -178,13 +180,13 @@
           <small>Флаги и столицы</small>
         </button>
 
-        <button class="category" onclick="comingSoon('Спорт')">
+        <button class="category" onclick="openCategory('sport')">
           <div class="icon">⚽</div>
           <h3>Спорт</h3>
           <small>Футбол и другие виды</small>
         </button>
 
-        <button class="category" onclick="comingSoon('Эрудиция')">
+        <button class="category" onclick="openCategory('erudition')">
           <div class="icon">🧠</div>
           <h3>Эрудиция</h3>
           <small>Проверь свои знания</small>
@@ -204,33 +206,40 @@
       </div>
     </div>
 
+    <!-- Меню География -->
     <div id="geoMenu" class="hide">
       <h1>🌍 География</h1>
       <p>Выбери игровой режим</p>
 
-      <button onclick="startGame('easy')">
-        Лёгкий<br><small id="rec_easy"></small>
-      </button>
+      <button onclick="startGame('easy')">Лёгкий<br><small id="rec_easy"></small></button>
+      <button onclick="startGame('hard')">Сложный<br><small id="rec_hard"></small></button>
+      <button onclick="startGame('reverse')">Наоборот<br><small id="rec_reverse"></small></button>
+      <button onclick="startGame('capital')">Столицы: лёгкий<br><small id="rec_capital"></small></button>
+      <button onclick="startGame('capital_hard')">Столицы: сложный<br><small id="rec_capital_hard"></small></button>
 
-      <button onclick="startGame('hard')">
-        Сложный<br><small id="rec_hard"></small>
-      </button>
+      <button class="back-button" onclick="backHome()">← Назад</button>
+    </div>
 
-      <button onclick="startGame('reverse')">
-        Наоборот<br><small id="rec_reverse"></small>
-      </button>
+    <!-- Меню Спорт -->
+    <div id="sportMenu" class="hide">
+      <h1>⚽ Спорт</h1>
+      <p>Выбери игровой режим</p>
 
-      <button onclick="startGame('capital')">
-        Столицы: лёгкий<br><small id="rec_capital"></small>
-      </button>
+      <button onclick="startGame('sport_easy')">Лёгкий<br><small id="rec_sport_easy"></small></button>
+      <button onclick="startGame('sport_hard')">Сложный<br><small id="rec_sport_hard"></small></button>
 
-      <button onclick="startGame('capital_hard')">
-        Столицы: сложный<br><small id="rec_capital_hard"></small>
-      </button>
+      <button class="back-button" onclick="backHome()">← Назад</button>
+    </div>
 
-      <button class="back-button" onclick="backHome()">
-        ← Назад
-      </button>
+    <!-- Меню Эрудиция -->
+    <div id="eruditionMenu" class="hide">
+      <h1>🧠 Эрудиция</h1>
+      <p>Выбери игровой режим</p>
+
+      <button onclick="startGame('erudition_easy')">Лёгкий<br><small id="rec_erudition_easy"></small></button>
+      <button onclick="startGame('erudition_hard')">Сложный<br><small id="rec_erudition_hard"></small></button>
+
+      <button class="back-button" onclick="backHome()">← Назад</button>
     </div>
   </div>
 
@@ -257,6 +266,7 @@
       tg.expand();
     }
 
+    // ========== ГЕОГРАФИЯ ==========
     const countries = {
       af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
       ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
@@ -354,33 +364,96 @@
       "co","pe","ve","nz","ae","ge","am","az","uz"]
       .filter(c => countries[c]);
 
+    // ========== СПОРТ ==========
+    const sportQuestions = [
+      { q: "Кто выиграл чемпионат мира по футболу 2018 года?", a: ["Франция", "Хорватия", "Бельгия", "Англия"], correct: 0 },
+      { q: "В каком клубе играет Криштиану Роналду (2024)?", a: ["Аль-Наср", "Манчестер Юнайтед", "Ювентус", "Реал Мадрид"], correct: 0 },
+      { q: "Сколько игроков в футбольной команде на поле?", a: ["11", "10", "12", "9"], correct: 0 },
+      { q: "Какая страна выиграла больше всего чемпионатов мира?", a: ["Бразилия", "Германия", "Италия", "Аргентина"], correct: 0 },
+      { q: "Кто такой Лионель Месси?", a: ["Футболист", "Теннисист", "Баскетболист", "Хоккеист"], correct: 0 },
+      { q: "В каком виде спорта используют шайбу?", a: ["Хоккей", "Футбол", "Баскетбол", "Волейбол"], correct: 0 },
+      { q: "Сколько сетов нужно выиграть в теннисном матче Большого шлема (мужчины)?", a: ["3", "2", "4", "5"], correct: 0 },
+      { q: "Какой клуб называют «Галатасарай»?", a: ["Турецкий", "Испанский", "Итальянский", "Французский"], correct: 0 },
+      { q: "Кто выиграл Олимпиаду 2014 в Сочи (хоккей, мужчины)?", a: ["Канада", "Швеция", "Россия", "США"], correct: 0 },
+      { q: "Как называется удар в боксе ниже пояса?", a: ["Фол", "Нокаут", "Хук", "Джеб"], correct: 0 },
+      { q: "Сколько очков даёт трёхочковый бросок в баскетболе?", a: ["3", "2", "1", "4"], correct: 0 },
+      { q: "Какая страна изобрела футбол?", a: ["Англия", "Бразилия", "Италия", "Германия"], correct: 0 },
+      { q: "Кто такой Усэйн Болт?", a: ["Легкоатлет", "Пловец", "Боксёр", "Футболист"], correct: 0 },
+      { q: "В каком виде спорта разыгрывают Кубок Стэнли?", a: ["Хоккей", "Футбол", "Баскетбол", "Регби"], correct: 0 },
+      { q: "Сколько минут длится тайм в футболе?", a: ["45", "30", "60", "40"], correct: 0 }
+    ];
+
+    // ========== ЭРУДИЦИЯ ==========
+    const eruditionQuestions = [
+      { q: "Кто написал роман «Война и мир»?", a: ["Лев Толстой", "Фёдор Достоевский", "Александр Пушкин", "Антон Чехов"], correct: 0 },
+      { q: "Какая планета самая большая в Солнечной системе?", a: ["Юпитер", "Сатурн", "Земля", "Нептун"], correct: 0 },
+      { q: "Сколько континентов на Земле?", a: ["6", "5", "7", "4"], correct: 0 },
+      { q: "Какой химический элемент обозначается как Au?", a: ["Золото", "Серебро", "Алюминий", "Уран"], correct: 0 },
+      { q: "В каком году произошла Октябрьская революция?", a: ["1917", "1905", "1914", "1922"], correct: 0 },
+      { q: "Кто изобрёл лампочку?", a: ["Томас Эдисон", "Никола Тесла", "Александр Белл", "Галилео Галилей"], correct: 0 },
+      { q: "Как называется самая длинная река в мире?", a: ["Нил", "Амазонка", "Янцзы", "Миссисипи"], correct: 0 },
+      { q: "Кто написал «Евгений Онегин»?", a: ["Александр Пушкин", "Михаил Лермонтов", "Николай Гоголь", "Иван Тургенев"], correct: 0 },
+      { q: "Сколько часов в сутках?", a: ["24", "12", "48", "36"], correct: 0 },
+      { q: "Какой газ мы вдыхаем?", a: ["Кислород", "Углекислый газ", "Азот", "Водород"], correct: 0 },
+      { q: "Столица Японии?", a: ["Токио", "Осака", "Киото", "Хиросима"], correct: 0 },
+      { q: "Кто такой Альберт Эйнштейн?", a: ["Физик", "Химик", "Биолог", "Математик"], correct: 0 },
+      { q: "Какой океан самый большой?", a: ["Тихий", "Атлантический", "Индийский", "Северный Ледовитый"], correct: 0 },
+      { q: "В каком году человек впервые полетел в космос?", a: ["1961", "1957", "1969", "1975"], correct: 0 },
+      { q: "Как называется столица Франции?", a: ["Париж", "Марсель", "Лион", "Ницца"], correct: 0 }
+    ];
+
+    // ========== РЕЖИМЫ ==========
     const MODES = {
+      // География
       easy:         { time: 15, type: "flag",    pool: easyCodes },
       hard:         { time: 7,  type: "flag",    pool: Object.keys(countries) },
       reverse:      { time: 12, type: "reverse", pool: easyCodes },
       capital:      { time: 12, type: "capital", pool: easyCodes.filter(c => capitals[c]) },
-      capital_hard: { time: 10, type: "capital", pool: Object.keys(capitals).filter(c => countries[c]) }
+      capital_hard: { time: 10, type: "capital", pool: Object.keys(capitals).filter(c => countries[c]) },
+
+      // Спорт
+      sport_easy:   { time: 15, type: "quiz", questions: sportQuestions },
+      sport_hard:   { time: 10, type: "quiz", questions: sportQuestions },
+
+      // Эрудиция
+      erudition_easy: { time: 15, type: "quiz", questions: eruditionQuestions },
+      erudition_hard: { time: 10, type: "quiz", questions: eruditionQuestions }
     };
 
-    const MODE_NAMES = ["easy", "hard", "reverse", "capital", "capital_hard"];
+    const MODE_NAMES = [
+      "easy", "hard", "reverse", "capital", "capital_hard",
+      "sport_easy", "sport_hard",
+      "erudition_easy", "erudition_hard"
+    ];
 
     let mode = "easy", score = 0, streak = 0, bestStreak = 0,
         lives = 3, timer = null, locked = false;
 
+    // ========== ФУНКЦИИ МЕНЮ ==========
     function show(id) {
       ["menu", "game", "over"].forEach(x =>
         document.getElementById(x).classList.toggle("hide", x !== id));
     }
 
     function openCategory(category) {
+      document.getElementById('homeMenu').classList.add('hide');
+      document.getElementById('geoMenu').classList.add('hide');
+      document.getElementById('sportMenu').classList.add('hide');
+      document.getElementById('eruditionMenu').classList.add('hide');
+
       if (category === 'geo') {
-        document.getElementById('homeMenu').classList.add('hide');
         document.getElementById('geoMenu').classList.remove('hide');
+      } else if (category === 'sport') {
+        document.getElementById('sportMenu').classList.remove('hide');
+      } else if (category === 'erudition') {
+        document.getElementById('eruditionMenu').classList.remove('hide');
       }
     }
 
     function backHome() {
       document.getElementById('geoMenu').classList.add('hide');
+      document.getElementById('sportMenu').classList.add('hide');
+      document.getElementById('eruditionMenu').classList.add('hide');
       document.getElementById('homeMenu').classList.remove('hide');
     }
 
@@ -388,6 +461,7 @@
       alert(name + ' — скоро появится!');
     }
 
+    // ========== РЕКОРДЫ ==========
     function lsGet(key) {
       try { return parseInt(localStorage.getItem(key)) || 0; }
       catch (e) { return 0; }
@@ -414,120 +488,4 @@
       try {
         if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
           tg.CloudStorage.setItem(key, String(v));
-        }
-      } catch (e) {}
-    }
-
-    function openMenu() {
-      clearInterval(timer);
-      show("menu");
-      MODE_NAMES.forEach(m => getRecord(m, v => {
-        const el = document.getElementById("rec_" + m);
-        if (el) el.textContent = "Рекорд: " + v;
-      }));
-    }
-
-    function updateHud() {
-      document.getElementById("hud").textContent =
-        "❤️".repeat(lives) + "🖤".repeat(3 - lives) +
-        "   🔥 " + streak + "   ✅ " + score;
-    }
-
-    function startGame(m) {
-      mode = m;
-      score = 0; streak = 0; bestStreak = 0; lives = 3;
-      show("game");
-      updateHud();
-      next();
-    }
-
-    function endGame() {
-      clearInterval(timer);
-      getRecord(mode, rec => {
-        const isNew = score > rec;
-        if (isNew) setRecord(mode, score);
-        document.getElementById("overText").innerHTML =
-          "Угадано: <b>" + score + "</b><br>" +
-          "Лучшая серия: <b>" + bestStreak + "</b><br>" +
-          (isNew ? "🏆 Новый рекорд!" : "Рекорд: <b>" + rec + "</b>");
-        show("over");
-      });
-    }
-
-    function answer(chosen, right, buttons) {
-      if (locked) return;
-      locked = true;
-      clearInterval(timer);
-      const ok = chosen === right;
-      if (ok) {
-        score++; streak++;
-        if (streak > bestStreak) bestStreak = streak;
-      } else {
-        lives--; streak = 0;
-      }
-      if (buttons[right]) buttons[right].style.background = "#4caf50";
-      if (chosen && !ok && buttons[chosen]) buttons[chosen].style.background = "#e53935";
-      updateHud();
-      setTimeout(() => lives <= 0 ? endGame() : next(), ok ? 800 : 1500);
-    }
-
-    function next() {
-      locked = false;
-      const M = MODES[mode];
-      const pool = M.pool;
-      const right = pool[Math.floor(Math.random() * pool.length)];
-      const opts = pool.filter(c => c !== right)
-        .sort(() => Math.random() - 0.5).slice(0, 3).concat(right)
-        .sort(() => Math.random() - 0.5);
-
-      const flagEl = document.getElementById("flag");
-      const promptEl = document.getElementById("prompt");
-      if (M.type === "flag") {
-        flagEl.className = "fi fi-" + right;
-        flagEl.style.display = "";
-        promptEl.textContent = "";
-      } else {
-        flagEl.className = "";
-        flagEl.style.display = "none";
-        promptEl.textContent = countries[right];
-      }
-
-      const box = document.getElementById("answers");
-      box.innerHTML = "";
-      box.className = M.type === "reverse" ? "grid" : "";
-      const buttons = {};
-      opts.forEach(c => {
-        const b = document.createElement("button");
-        if (M.type === "reverse") {
-          b.innerHTML = '<span class="fi fi-' + c + '" style="font-size:3em;margin:0"></span>';
-        } else if (M.type === "capital") {
-          b.textContent = capitals[c];
-        } else {
-          b.textContent = countries[c];
-        }
-        b.onclick = () => answer(c, right, buttons);
-        buttons[c] = b;
-        box.appendChild(b);
-      });
-
-      let left = M.time;
-      const bar = document.getElementById("barFill");
-      const text = document.getElementById("timeText");
-      bar.style.transition = "none";
-      bar.style.width = "100%";
-      void bar.offsetWidth;
-      bar.style.transition = "width 1s linear";
-      text.textContent = "⏱ " + left + " с";
-      clearInterval(timer);
-      timer = setInterval(() => {
-        left--;
-        text.textContent = "⏱ " + Math.max(left, 0) + " с";
-        bar.style.width = (Math.max(left, 0) / M.time * 100) + "%";
-        if (left <= 0) answer(null, right, buttons);
-      }, 1000);
-    }
-
-    openMenu();
-  </script>
-</body>
-</html>
+        
