@@ -74,20 +74,9 @@
       background: #243052;
     }
 
-    .category .icon {
-      font-size: 30px;
-      margin-bottom: 6px;
-    }
-
-    .category h3 {
-      margin: 6px 0 4px;
-      font-size: 16px;
-    }
-
-    .category small {
-      color: #aab7d0;
-      font-size: 12px;
-    }
+    .category .icon { font-size: 30px; margin-bottom: 6px; }
+    .category h3 { margin: 6px 0 4px; font-size: 16px; }
+    .category small { color: #aab7d0; font-size: 12px; }
 
     .main-card {
       background: linear-gradient(135deg, #293f75, #553b91);
@@ -97,15 +86,8 @@
       text-align: left;
     }
 
-    .main-card h2 {
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
-
-    .main-card p {
-      font-size: 14px;
-      opacity: 0.9;
-    }
+    .main-card h2 { font-size: 18px; margin-bottom: 6px; }
+    .main-card p { font-size: 14px; opacity: 0.9; }
 
     button.mode-btn {
       display: block;
@@ -121,9 +103,7 @@
       cursor: pointer;
     }
 
-    button.mode-btn:active {
-      background: #2a3a5e;
-    }
+    button.mode-btn:active { background: #2a3a5e; }
 
     .back-button {
       display: inline-block;
@@ -193,9 +173,7 @@
       cursor: pointer;
     }
 
-    #answers button:active {
-      background: #2a3a5e;
-    }
+    #answers button:active { background: #2a3a5e; }
 
     .grid {
       display: grid;
@@ -224,6 +202,17 @@
       color: white;
       cursor: pointer;
     }
+
+    .club-logo {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 16px;
+      padding: 10px;
+      margin: 10px auto;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -250,7 +239,7 @@
       <button class="category" id="btn-sport">
         <div class="icon">⚽</div>
         <h3>Спорт</h3>
-        <small>Футбол и другие виды</small>
+        <small>Футбол и эмблемы</small>
       </button>
 
       <button class="category" id="btn-erudition">
@@ -292,8 +281,9 @@
     <h1>⚽ Спорт</h1>
     <p class="subtitle">Выбери игровой режим</p>
 
-    <button class="mode-btn" data-mode="sport_easy">Лёгкий<br><small id="rec_sport_easy"></small></button>
-    <button class="mode-btn" data-mode="sport_hard">Сложный<br><small id="rec_sport_hard"></small></button>
+    <button class="mode-btn" data-mode="sport_easy">Викторина: лёгкий<br><small id="rec_sport_easy"></small></button>
+    <button class="mode-btn" data-mode="sport_hard">Викторина: сложный<br><small id="rec_sport_hard"></small></button>
+    <button class="mode-btn" data-mode="clubs">Эмблемы клубов<br><small id="rec_clubs"></small></button>
 
     <button class="back-button" id="back-sport">← Назад</button>
   </div>
@@ -334,7 +324,7 @@
       tg.expand();
     }
 
-    // ========== ДАННЫЕ ==========
+    // ========== ГЕОГРАФИЯ ==========
     const countries = {
       af:"Афганистан",al:"Албания",dz:"Алжир",ad:"Андорра",ao:"Ангола",
       ag:"Антигуа и Барбуда",ar:"Аргентина",am:"Армения",au:"Австралия",
@@ -431,6 +421,7 @@
       "cz","hu","ro","bg","rs","hr","ie","is","th","vn","id","cu","cl",
       "co","pe","ve","nz","ae","ge","am","az","uz"].filter(c => countries[c]);
 
+    // ========== СПОРТ (викторина) ==========
     const sportQuestions = [
       { q: "Кто выиграл чемпионат мира по футболу 2018 года?", a: ["Франция", "Хорватия", "Бельгия", "Англия"], correct: 0 },
       { q: "В каком клубе играет Криштиану Роналду (2024)?", a: ["Аль-Наср", "Манчестер Юнайтед", "Ювентус", "Реал Мадрид"], correct: 0 },
@@ -438,9 +429,6 @@
       { q: "Какая страна выиграла больше всего чемпионатов мира?", a: ["Бразилия", "Германия", "Италия", "Аргентина"], correct: 0 },
       { q: "Кто такой Лионель Месси?", a: ["Футболист", "Теннисист", "Баскетболист", "Хоккеист"], correct: 0 },
       { q: "В каком виде спорта используют шайбу?", a: ["Хоккей", "Футбол", "Баскетбол", "Волейбол"], correct: 0 },
-      { q: "Сколько сетов нужно выиграть в теннисном матче Большого шлема (мужчины)?", a: ["3", "2", "4", "5"], correct: 0 },
-      { q: "Какой клуб называют «Галатасарай»?", a: ["Турецкий", "Испанский", "Итальянский", "Французский"], correct: 0 },
-      { q: "Кто выиграл Олимпиаду 2014 в Сочи (хоккей, мужчины)?", a: ["Канада", "Швеция", "Россия", "США"], correct: 0 },
       { q: "Сколько очков даёт трёхочковый бросок в баскетболе?", a: ["3", "2", "1", "4"], correct: 0 },
       { q: "Какая страна изобрела футбол?", a: ["Англия", "Бразилия", "Италия", "Германия"], correct: 0 },
       { q: "Кто такой Усэйн Болт?", a: ["Легкоатлет", "Пловец", "Боксёр", "Футболист"], correct: 0 },
@@ -448,6 +436,31 @@
       { q: "Сколько минут длится тайм в футболе?", a: ["45", "30", "60", "40"], correct: 0 }
     ];
 
+    // ========== ЭМБЛЕМЫ КЛУБОВ ==========
+    const clubs = [
+      { name: "Реал Мадрид", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg" },
+      { name: "Барселона", logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg" },
+      { name: "Манчестер Юнайтед", logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg" },
+      { name: "Ливерпуль", logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" },
+      { name: "Бавария", logo: "https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg" },
+      { name: "Ювентус", logo: "https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg" },
+      { name: "ПСЖ", logo: "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg" },
+      { name: "Челси", logo: "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" },
+      { name: "Арсенал", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
+      { name: "Милан", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d2/AC_Milan_logo.svg" },
+      { name: "Интер", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg" },
+      { name: "Атлетико Мадрид", logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg" },
+      { name: "Боруссия Дортмунд", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg" },
+      { name: "Аякс", logo: "https://upload.wikimedia.org/wikipedia/en/7/79/Ajax_Amsterdam.svg" },
+      { name: "Тоттенхэм", logo: "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg" },
+      { name: "Манчестер Сити", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg" },
+      { name: "Зенит", logo: "https://upload.wikimedia.org/wikipedia/en/2/25/FC_Zenit_Logo.svg" },
+      { name: "Спартак Москва", logo: "https://upload.wikimedia.org/wikipedia/en/9/96/FC_Spartak_Moscow_logo.svg" },
+      { name: "ЦСКА Москва", logo: "https://upload.wikimedia.org/wikipedia/en/3/3f/PFC_CSKA_Moscow_logo.svg" },
+      { name: "Локомотив Москва", logo: "https://upload.wikimedia.org/wikipedia/en/f/f1/FC_Lokomotiv_Moscow_logo.svg" }
+    ];
+
+    // ========== ЭРУДИЦИЯ ==========
     const eruditionQuestions = [
       { q: "Кто написал роман «Война и мир»?", a: ["Лев Толстой", "Фёдор Достоевский", "Александр Пушкин", "Антон Чехов"], correct: 0 },
       { q: "Какая планета самая большая в Солнечной системе?", a: ["Юпитер", "Сатурн", "Земля", "Нептун"], correct: 0 },
@@ -463,264 +476,4 @@
       { q: "Кто такой Альберт Эйнштейн?", a: ["Физик", "Химик", "Биолог", "Математик"], correct: 0 },
       { q: "Какой океан самый большой?", a: ["Тихий", "Атлантический", "Индийский", "Северный Ледовитый"], correct: 0 },
       { q: "В каком году человек впервые полетел в космос?", a: ["1961", "1957", "1969", "1975"], correct: 0 },
-      { q: "Как называется столица Франции?", a: ["Париж", "Марсель", "Лион", "Ницца"], correct: 0 }
-    ];
-
-    const MODES = {
-      easy:         { time: 15, type: "flag",    pool: easyCodes },
-      hard:         { time: 7,  type: "flag",    pool: Object.keys(countries) },
-      reverse:      { time: 12, type: "reverse", pool: easyCodes },
-      capital:      { time: 12, type: "capital", pool: easyCodes.filter(c => capitals[c]) },
-      capital_hard: { time: 10, type: "capital", pool: Object.keys(capitals).filter(c => countries[c]) },
-      sport_easy:   { time: 15, type: "quiz", questions: sportQuestions },
-      sport_hard:   { time: 10, type: "quiz", questions: sportQuestions },
-      erudition_easy: { time: 15, type: "quiz", questions: eruditionQuestions },
-      erudition_hard: { time: 10, type: "quiz", questions: eruditionQuestions }
-    };
-
-    const MODE_NAMES = Object.keys(MODES);
-
-    let mode = "easy", score = 0, streak = 0, bestStreak = 0, lives = 3, timer = null, locked = false;
-
-    // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
-    function hideAll() {
-      ["homeMenu", "geoMenu", "sportMenu", "eruditionMenu", "game", "over"].forEach(id => {
-        document.getElementById(id).classList.add("hide");
-      });
-    }
-
-    function showScreen(id) {
-      hideAll();
-      document.getElementById(id).classList.remove("hide");
-    }
-
-    function lsGet(key) {
-      try { return parseInt(localStorage.getItem(key)) || 0; } catch(e) { return 0; }
-    }
-
-    function getRecord(m, cb) {
-      const key = "rec_" + m;
-      let done = false;
-      const finish = v => { if (!done) { done = true; cb(v); } };
-      try {
-        if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
-          tg.CloudStorage.getItem(key, (e, v) => finish(Math.max(parseInt(v) || 0, lsGet(key))));
-          setTimeout(() => finish(lsGet(key)), 1200);
-          return;
-        }
-      } catch(e) {}
-      finish(lsGet(key));
-    }
-
-    function setRecord(m, v) {
-      const key = "rec_" + m;
-      try { localStorage.setItem(key, String(v)); } catch(e) {}
-      try {
-        if (tg?.CloudStorage && tg.isVersionAtLeast("6.9")) {
-          tg.CloudStorage.setItem(key, String(v));
-        }
-      } catch(e) {}
-    }
-
-    function updateRecords() {
-      MODE_NAMES.forEach(m => {
-        getRecord(m, v => {
-          const el = document.getElementById("rec_" + m);
-          if (el) el.textContent = "Рекорд: " + v;
-        });
-      });
-    }
-
-    // ========== МЕНЮ ==========
-    function openHome() {
-      showScreen("homeMenu");
-      updateRecords();
-    }
-
-    function openGeo() {
-      showScreen("geoMenu");
-      updateRecords();
-    }
-
-    function openSport() {
-      showScreen("sportMenu");
-      updateRecords();
-    }
-
-    function openErudition() {
-      showScreen("eruditionMenu");
-      updateRecords();
-    }
-
-    // ========== ИГРА ==========
-    function updateHud() {
-      document.getElementById("hud").textContent =
-        "❤️".repeat(lives) + "🖤".repeat(3 - lives) + "   🔥 " + streak + "   ✅ " + score;
-    }
-
-    function startGame(m) {
-      mode = m;
-      score = 0;
-      streak = 0;
-      bestStreak = 0;
-      lives = 3;
-      locked = false;
-      showScreen("game");
-      updateHud();
-      next();
-    }
-
-    function endGame() {
-      clearInterval(timer);
-      getRecord(mode, rec => {
-        const isNew = score > rec;
-        if (isNew) setRecord(mode, score);
-        document.getElementById("overText").innerHTML =
-          "Угадано: <b>" + score + "</b><br>" +
-          "Лучшая серия: <b>" + bestStreak + "</b><br>" +
-          (isNew ? "🏆 Новый рекорд!" : "Рекорд: <b>" + rec + "</b>");
-        showScreen("over");
-      });
-    }
-
-    function answer(chosen, right, buttons) {
-      if (locked) return;
-      locked = true;
-      clearInterval(timer);
-
-      const ok = chosen === right;
-      if (ok) {
-        score++;
-        streak++;
-        if (streak > bestStreak) bestStreak = streak;
-      } else {
-        lives--;
-        streak = 0;
-      }
-
-      if (buttons[right]) buttons[right].style.background = "#4caf50";
-      if (chosen !== null && !ok && buttons[chosen]) buttons[chosen].style.background = "#e53935";
-
-      updateHud();
-      setTimeout(() => {
-        if (lives <= 0) endGame();
-        else next();
-      }, ok ? 700 : 1400);
-    }
-
-    function startTimer(seconds, onTimeout) {
-      let left = seconds;
-      const bar = document.getElementById("barFill");
-      const text = document.getElementById("timeText");
-
-      bar.style.transition = "none";
-      bar.style.width = "100%";
-      void bar.offsetWidth;
-      bar.style.transition = "width 1s linear";
-      text.textContent = "⏱ " + left + " с";
-
-      clearInterval(timer);
-      timer = setInterval(() => {
-        left--;
-        text.textContent = "⏱ " + Math.max(left, 0) + " с";
-        bar.style.width = (Math.max(left, 0) / seconds * 100) + "%";
-        if (left <= 0) {
-          clearInterval(timer);
-          onTimeout();
-        }
-      }, 1000);
-    }
-
-    function next() {
-      locked = false;
-      const M = MODES[mode];
-      const flagEl = document.getElementById("flag");
-      const promptEl = document.getElementById("prompt");
-      const box = document.getElementById("answers");
-
-      box.innerHTML = "";
-      box.className = "";
-
-      // === ВИКТОРИНА (Спорт / Эрудиция) ===
-      if (M.type === "quiz") {
-        flagEl.style.display = "none";
-        const q = M.questions[Math.floor(Math.random() * M.questions.length)];
-        promptEl.textContent = q.q;
-
-        const opts = q.a.map((text, i) => ({ text, i })).sort(() => Math.random() - 0.5);
-        const buttons = {};
-
-        opts.forEach(opt => {
-          const b = document.createElement("button");
-          b.textContent = opt.text;
-          b.onclick = () => answer(opt.i, q.correct, buttons);
-          buttons[opt.i] = b;
-          box.appendChild(b);
-        });
-
-        startTimer(M.time, () => answer(null, q.correct, buttons));
-        return;
-      }
-
-      // === ГЕОГРАФИЯ ===
-      const pool = M.pool;
-      const right = pool[Math.floor(Math.random() * pool.length)];
-      const opts = pool.filter(c => c !== right)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3)
-        .concat(right)
-        .sort(() => Math.random() - 0.5);
-
-      if (M.type === "flag") {
-        flagEl.className = "fi fi-" + right;
-        flagEl.style.display = "";
-        promptEl.textContent = "";
-      } else {
-        flagEl.style.display = "none";
-        promptEl.textContent = countries[right];
-      }
-
-      if (M.type === "reverse") box.className = "grid";
-
-      const buttons = {};
-      opts.forEach(c => {
-        const b = document.createElement("button");
-        if (M.type === "reverse") {
-          b.innerHTML = '<span class="fi fi-' + c + '" style="font-size:2.8em;margin:0;"></span>';
-        } else if (M.type === "capital") {
-          b.textContent = capitals[c];
-        } else {
-          b.textContent = countries[c];
-        }
-        b.onclick = () => answer(c, right, buttons);
-        buttons[c] = b;
-        box.appendChild(b);
-      });
-
-      startTimer(M.time, () => answer(null, right, buttons));
-    }
-
-    // ========== ПРИВЯЗКА КНОПОК ==========
-    document.getElementById("btn-geo").onclick = openGeo;
-    document.getElementById("btn-sport").onclick = openSport;
-    document.getElementById("btn-erudition").onclick = openErudition;
-    document.getElementById("btn-entertainment").onclick = () => alert("Развлечения — скоро появится!");
-    document.getElementById("btn-logic").onclick = () => alert("Логика — скоро появится!");
-
-    document.getElementById("back-geo").onclick = openHome;
-    document.getElementById("back-sport").onclick = openHome;
-    document.getElementById("back-erudition").onclick = openHome;
-
-    document.getElementById("btn-again").onclick = () => startGame(mode);
-    document.getElementById("btn-to-menu").onclick = openHome;
-
-    // Режимные кнопки
-    document.querySelectorAll(".mode-btn").forEach(btn => {
-      btn.onclick = () => startGame(btn.dataset.mode);
-    });
-
-    // Старт
-    openHome();
-  </script>
-</body>
-</html>
+      { q: "Как называется столица Франции?", a: ["Париж", "Марсель", "Лион", "Ницца"], correct: 
